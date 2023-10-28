@@ -15,9 +15,8 @@ class PlantListItem extends StatelessWidget {
       child: Column(
         children: [
           Image.asset(
-
             "assets/sunflower.jpg",
-            fit: BoxFit.fill,
+            fit: BoxFit.fitWidth,
           ),
           const SectionTitle(title: "Sunflower"),
         ],
@@ -37,9 +36,8 @@ class SectionTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      
       padding: const EdgeInsets.all(10),
-      child: Text(title, style: Theme.of(context).textTheme.titleLarge),
+      child: Text(title, style: Theme.of(context).textTheme.titleMedium),
     );
   }
 }
