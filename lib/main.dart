@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sunflower_flutter/plantListItem.dart';
+import 'package:sunflower_flutter/plant_list_screen.dart';
 
 void main() => runApp(const TabBarApp());
 
@@ -42,13 +42,13 @@ class TabBarExample extends StatelessWidget {
             ],
           ),
         ),
-        body: const TabBarView(
+        body:  TabBarView(
           children: <Widget>[
-            Center(
+            const Center(
               child: Text("Mi jardín"),
             ),
             Center(
-              child: PlantListItem(),
+              child: PlantListScreen(),
             ),
           ],
         ),
