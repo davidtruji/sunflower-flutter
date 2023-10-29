@@ -28,21 +28,24 @@ class TabBarExample extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Sunflower'),
+          centerTitle: true,
+          title: Text('Sunflower',
+              style: Theme.of(context).textTheme.displayMedium),
           bottom: const TabBar(
             tabs: <Widget>[
               Tab(
-                icon: Icon(Icons.local_florist),
+
+                icon: Icon(Icons.local_florist, size: 36),
                 text: "Mi jardín",
               ),
               Tab(
-                icon: Icon(Icons.eco),
+                icon: Icon(Icons.eco, size: 36),
                 text: "Lista de plantas",
               ),
             ],
           ),
         ),
-        body:  TabBarView(
+        body: TabBarView(
           children: <Widget>[
             const Center(
               child: Text("Mi jardín"),
