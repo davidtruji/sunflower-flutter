@@ -31,7 +31,7 @@ class TabBarExample extends StatelessWidget {
         appBar: AppBar(
           centerTitle: true,
           title: Text('Sunflower',
-              style: Theme.of(context).textTheme.displayMedium),
+              style: Theme.of(context).textTheme.displaySmall),
           bottom: const TabBar(
             tabs: <Widget>[
               Tab(

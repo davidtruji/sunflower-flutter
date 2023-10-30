@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sunflower_flutter/plant_detail.dart';
+import 'package:sunflower_flutter/shape.dart';
 
 class PlantListItem extends StatelessWidget {
   const PlantListItem({super.key});
@@ -8,10 +9,7 @@ class PlantListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
         clipBehavior: Clip.hardEdge,
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                topRight: Radius.circular(20),
-                bottomLeft: Radius.circular(20))),
+        shape: Shape.sunflowerShape,
         elevation: 0,
         color: Theme.of(context).colorScheme.secondaryContainer,
         child: InkWell(
