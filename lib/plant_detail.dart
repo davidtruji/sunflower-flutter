@@ -22,7 +22,6 @@ class PlantDetail extends StatelessWidget {
                   padding: const EdgeInsets.all(8),
                   child: FloatingActionButton(
                     onPressed: () => Navigator.pop(context),
-                    backgroundColor: Colors.white,
                     shape: const CircleBorder(),
                     child: const Icon(Icons.arrow_back),
                   ),
@@ -52,7 +51,7 @@ class PlantDetail extends StatelessWidget {
           },
           body: SingleChildScrollView(
               child: Padding(
-            padding: const EdgeInsets.all(8),
+            padding: const EdgeInsets.all(24),
             child: Column(children: [
               Text("Sunflower",
                   style: Theme.of(context).textTheme.displayMedium),
