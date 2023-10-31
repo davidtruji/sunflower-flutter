@@ -36,10 +36,8 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
 
-  # To use vector icons
-  flutter_svg: ^2.0.7
+  # Added dependencies
   responsive_grid_list: ^1.4.0
-  circle_button: ^1.1.0
 
 dev_dependencies:
   flutter_test:
