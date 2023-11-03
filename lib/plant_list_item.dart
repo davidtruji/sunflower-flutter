@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:sunflower_flutter/plant.dart';
 import 'package:sunflower_flutter/plant_detail.dart';
 import 'package:sunflower_flutter/shape.dart';
 
 class PlantListItem extends StatelessWidget {
-  const PlantListItem({super.key});
+  const PlantListItem({super.key, required this.plant});
+
+  final Plant plant;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +34,7 @@ class PlantListItem extends StatelessWidget {
                 "assets/sunflower.jpg",
                 fit: BoxFit.fitWidth,
               ),
-              const SectionTitle(title: "Sunflower"),
+              SectionTitle(title: plant.name),
             ],
           ),
         ));

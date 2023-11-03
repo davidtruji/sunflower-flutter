@@ -1,9 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:sunflower_flutter/db_helper.dart';
 import 'package:sunflower_flutter/my_garden_screen.dart';
+import 'package:sunflower_flutter/plant.dart';
 import 'package:sunflower_flutter/plant_list_screen.dart';
 import 'package:sunflower_flutter/color_schemes.dart';
 
-void main() => runApp(const TabBarApp());
+void main() {
+  // final DBHelper helper = DBHelper();
+  // debugPrint("DB initialized");
+  // helper.initDB();
+  // helper.insertPlant(const Plant(
+  //     plantId: "plantId",
+  //     name: "Rosal",
+  //     description: "description",
+  //     growZoneNumber: 1,
+  //     wateringInterval: 3));
+  //
+  // helper.getAllUsers().whenComplete(() => debugPrint())
+  runApp(const TabBarApp());
+}
 
 class TabBarApp extends StatelessWidget {
   const TabBarApp({super.key});

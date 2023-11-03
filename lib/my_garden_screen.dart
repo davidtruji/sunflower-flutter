@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:sunflower_flutter/garden_list_item.dart';
 import 'package:responsive_grid_list/responsive_grid_list.dart';
 
 class MyGardenScreen extends StatelessWidget {
   MyGardenScreen({super.key});
+
 
   late List<GardenListItem> gardenList = [];
 
@@ -14,7 +16,7 @@ class MyGardenScreen extends StatelessWidget {
     }
 
     return ResponsiveGridList(
-      minItemWidth: 150,
+    minItemWidth: 150,
       verticalGridMargin: 16,
       verticalGridSpacing: 16,
       horizontalGridMargin: 16,

@@ -38,6 +38,10 @@ dependencies:
 
   # Added dependencies
   responsive_grid_list: ^1.4.0
+  sqflite_common_ffi: ^2.3.0+2
+  path_provider: ^2.1.1
+  path: ^1.8.3
+  sqlite3: ^2.1.0
 
 dev_dependencies:
   flutter_test:
