@@ -29,10 +29,12 @@ class PlantListItem extends StatelessWidget {
             );
           },
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Image.asset(
-                "assets/sunflower.jpg",
-                fit: BoxFit.fitWidth,
+              Image.network(
+                plant.imageUrl,
+                height: 100,
+                fit: BoxFit.cover,
               ),
               SectionTitle(title: plant.name),
             ],
@@ -52,8 +54,10 @@ class SectionTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      alignment: Alignment.center,
       padding: const EdgeInsets.all(10),
-      child: Text(title, style: Theme.of(context).textTheme.titleMedium),
+      child: Text(title,
+          maxLines: 1,softWrap: true, style: Theme.of(context).textTheme.titleMedium),
     );
   }
 }

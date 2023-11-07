@@ -21,6 +21,7 @@ class PlantDetail extends StatelessWidget {
                 leading: Padding(
                   padding: const EdgeInsets.all(8),
                   child: FloatingActionButton(
+                    heroTag: UniqueKey(),
                     onPressed: () => Navigator.pop(context),
                     shape: const CircleBorder(),
                     child: const Icon(Icons.arrow_back),
@@ -40,6 +41,7 @@ class PlantDetail extends StatelessWidget {
                           FloatingActionButtonLocation.endFloat,
                       floatingActionButton: FloatingActionButton(
                         onPressed: () {},
+                        heroTag: UniqueKey(),
                         shape: Shape.sunflowerShape,
                         child: const Icon(Icons.add),
                       ),

@@ -7,6 +7,7 @@ class Plant {
   final String description;
   final int growZoneNumber;
   final int wateringInterval;
+  final String imageUrl;
 
   const Plant({
     required this.plantId,
@@ -14,6 +15,7 @@ class Plant {
     required this.description,
     required this.growZoneNumber,
     required this.wateringInterval,
+    required this.imageUrl,
   });
 
   @override
@@ -28,6 +30,17 @@ class Plant {
       "description": description,
       "growZoneNumber": growZoneNumber,
       "wateringInterval": wateringInterval,
+      "imageUrl": imageUrl,
     };
+  }
+
+  factory Plant.fromJson(Map<String, dynamic> json) {
+    return Plant(
+        plantId: json["plantId"],
+        name: json["name"],
+        description: json["description"],
+        growZoneNumber: json["growZoneNumber"],
+        wateringInterval: json["wateringInterval"],
+        imageUrl: json["imageUrl"]);
   }
 }

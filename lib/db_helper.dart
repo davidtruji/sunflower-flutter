@@ -1,4 +1,7 @@
+import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:path/path.dart';
@@ -24,7 +27,7 @@ class DBHelper {
       final winLinuxDB = await databaseFactory.openDatabase(
         dbPath,
         options: OpenDatabaseOptions(
-          version: 1,
+          version: 2,
           onCreate: _onCreate,
         ),
       );
@@ -49,9 +52,23 @@ class DBHelper {
             name TEXT,
             description TEXT,
             growZoneNumber INTEGER,
-            wateringInterval INTEGER
+            wateringInterval INTEGER,
+            imageUrl TEXT
           )
  """);
+  }
+
+  Future<List<Plant>> readPlantsFromJSON() async {
+    debugPrint("READING PLANTS JSON");
+    try {
+      final String response = await rootBundle.loadString('assets/plants.json');
+      final parsed =
+          (jsonDecode(response) as List).cast<Map<String, dynamic>>();
+      return parsed.map<Plant>((json) => Plant.fromJson(json)).toList();
+    } catch (e) {
+      // If encountering an error, return 0
+      return [];
+    }
   }
 
   Future<List<Plant>> getAllUsers() async {
@@ -65,6 +82,7 @@ class DBHelper {
         description: maps[index]['description'],
         growZoneNumber: maps[index]['growZoneNumber'],
         wateringInterval: maps[index]['wateringInterval'],
+        imageUrl: maps[index]['imageUrl'],
       );
     });
   }

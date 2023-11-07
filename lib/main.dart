@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:sunflower_flutter/db_helper.dart';
 import 'package:sunflower_flutter/my_garden_screen.dart';
@@ -6,17 +7,17 @@ import 'package:sunflower_flutter/plant_list_screen.dart';
 import 'package:sunflower_flutter/color_schemes.dart';
 
 void main() {
-  // final DBHelper helper = DBHelper();
-  // debugPrint("DB initialized");
-  // helper.initDB();
-  // helper.insertPlant(const Plant(
-  //     plantId: "plantId",
-  //     name: "Rosal",
-  //     description: "description",
-  //     growZoneNumber: 1,
-  //     wateringInterval: 3));
-  //
-  // helper.getAllUsers().whenComplete(() => debugPrint())
+  final DBHelper helper = DBHelper();
+  helper.initDB();
+  WidgetsFlutterBinding.ensureInitialized();
+  helper.readPlantsFromJSON().then((plants) {
+    debugPrint("EXECUTING FUTURE");
+    for (Plant p in plants) {
+      debugPrint("Insert plant: ${p.name}");
+      helper.insertPlant(p);
+    }
+  });
+
   runApp(const TabBarApp());
 }
 
