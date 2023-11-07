@@ -33,13 +33,18 @@ class DBHelper {
       );
       return winLinuxDB;
     } else if (Platform.isAndroid || Platform.isIOS) {
-      final documentsDirectory = await getApplicationDocumentsDirectory();
-      final path = join(documentsDirectory.path, "data.db");
+      final path = join(await getDatabasesPath(), "data.db");
       final iOSAndroidDB = await openDatabase(
         path,
         version: 1,
         onCreate: _onCreate,
       );
+
+
+
+
+
+
       return iOSAndroidDB;
     }
     throw Exception("Unsupported platform");

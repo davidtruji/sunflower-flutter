@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:sunflower_flutter/db_helper.dart';
 import 'package:sunflower_flutter/my_garden_screen.dart';
@@ -7,9 +6,8 @@ import 'package:sunflower_flutter/plant_list_screen.dart';
 import 'package:sunflower_flutter/color_schemes.dart';
 
 void main() {
-  final DBHelper helper = DBHelper();
-  helper.initDB();
   WidgetsFlutterBinding.ensureInitialized();
+  final DBHelper helper = DBHelper();
   helper.readPlantsFromJSON().then((plants) {
     debugPrint("EXECUTING FUTURE");
     for (Plant p in plants) {
