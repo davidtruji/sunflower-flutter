@@ -61,7 +61,7 @@ class TabBarExample extends StatelessWidget {
         body: TabBarView(
           children: <Widget>[
             MyGardenScreen(),
-            PlantListScreen(),
+            const PlantListScreen(),
           ],
         ),
       ),

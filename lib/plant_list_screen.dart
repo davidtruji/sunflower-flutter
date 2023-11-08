@@ -17,8 +17,6 @@ class PlantListState extends State<PlantListScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsFlutterBinding.ensureInitialized();
-    helper.initDB();
   }
 
   @override
