@@ -7,6 +7,7 @@ import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:path/path.dart';
 import 'package:sunflower_flutter/garden_planting.dart';
 import 'package:sunflower_flutter/plant.dart';
+import 'package:sunflower_flutter/plant_garden_planting.dart';
 
 class DBHelper {
   Database? _database;
@@ -114,6 +115,19 @@ class DBHelper {
         lastWateringDate: maps[index]['lastWateringDate'],
       );
     });
+  }
+
+  Future<List<PlantGardenPlanting>> getPlantGardenPlanting() async {
+    List<GardenPlanting> gardenPlantings = await getGardenPlantings();
+    List<PlantGardenPlanting> plantGardenPlantings = [];
+
+    for (GardenPlanting g in gardenPlantings) {
+      Plant p = await getPlantById(g.plantId);
+      plantGardenPlantings
+          .add(PlantGardenPlanting(plant: p, gardenPlanting: g));
+    }
+
+    return plantGardenPlantings;
   }
 
   void insertPlant(Plant plant) async {

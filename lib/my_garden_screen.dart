@@ -3,6 +3,8 @@ import 'package:sunflower_flutter/garden_list_item.dart';
 import 'package:responsive_grid_list/responsive_grid_list.dart';
 import 'package:sunflower_flutter/garden_planting.dart';
 import 'package:sunflower_flutter/plant.dart';
+import 'package:sunflower_flutter/plant_garden_planting.dart';
+import 'package:sunflower_flutter/plant_garden_planting.dart';
 
 import 'db_helper.dart';
 
@@ -23,8 +25,8 @@ class GardenListState extends State<MyGardenScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<GardenPlanting>>(
-        future: helper.getGardenPlantings(),
+    return FutureBuilder<List<PlantGardenPlanting>>(
+        future: helper.getPlantGardenPlanting(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -33,14 +35,11 @@ class GardenListState extends State<MyGardenScreen> {
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return const Center(child: Text('Nothing planted yet'));
           } else {
-            final gardenPlantings = snapshot.data;
-            List<GardenListItem> gardenPlantingsList = [];
+            final plantGardenPlanting = snapshot.data;
+            List<GardenListItem> gardenPlantings = [];
 
-            for (GardenPlanting g in gardenPlantings!) {
-              helper.getPlantById(g.plantId).then((plant) {
-                gardenPlantingsList
-                    .add(GardenListItem(plant: plant, gardenPlanting: g));
-              });
+            for (PlantGardenPlanting g in plantGardenPlanting!) {
+              gardenPlantings.add(GardenListItem(plantGardenPlanting: g));
             }
 
             return ResponsiveGridList(
@@ -49,7 +48,7 @@ class GardenListState extends State<MyGardenScreen> {
               verticalGridSpacing: 16,
               horizontalGridMargin: 16,
               horizontalGridSpacing: 16,
-              children: gardenPlantingsList,
+              children: gardenPlantings,
             );
           }
         });
