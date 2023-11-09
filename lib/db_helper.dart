@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:path/path.dart';
+import 'package:sunflower_flutter/garden_planting.dart';
 import 'package:sunflower_flutter/plant.dart';
 
 class DBHelper {
@@ -48,6 +49,8 @@ class DBHelper {
   Future<void> _onCreate(Database database, int version) async {
     debugPrint("Creating database");
     final db = database;
+
+    // Create plants table
     await db.execute(""" CREATE TABLE IF NOT EXISTS plants(
             plantId TEXT PRIMARY KEY,
             name TEXT,
@@ -55,6 +58,15 @@ class DBHelper {
             growZoneNumber INTEGER,
             wateringInterval INTEGER,
             imageUrl TEXT
+          )
+ """);
+
+    // Create garden table
+    await db.execute(""" CREATE TABLE IF NOT EXISTS garden_plantings(
+            gardenPlantingId INTEGER PRIMARY KEY,
+            plantId TEXT,
+            plantDate TEXT,
+            lastWateringDate TEXT
           )
  """);
 
@@ -90,14 +102,36 @@ class DBHelper {
     });
   }
 
-  Future<Plant> insertPlant(Plant plant) async {
+  Future<List<GardenPlanting>> getGardenPlantings() async {
+    final db = await database;
+    final List<Map<String, dynamic>> maps = await db.query('garden_plantings');
+
+    return List.generate(maps.length, (index) {
+      return GardenPlanting(
+        gardenPlantingId: maps[index]['gardenPlantingId'],
+        plantId: maps[index]['plantId'],
+        plantDate: maps[index]['plantDate'],
+        lastWateringDate: maps[index]['lastWateringDate'],
+      );
+    });
+  }
+
+  void insertPlant(Plant plant) async {
     final db = await database;
     db.insert(
       "plants",
       plant.toMap(),
       conflictAlgorithm: ConflictAlgorithm.ignore,
     );
-    return plant;
+  }
+
+  void insertGardenPlanting(GardenPlanting gardenPlanting) async {
+    final db = await database;
+    db.insert(
+      "garden_plantings",
+      gardenPlanting.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.ignore,
+    );
   }
 
   void batchInsert(List<Plant> plantList) async {
@@ -119,29 +153,25 @@ class DBHelper {
     readPlantsFromJSON().then((plants) => batchInsert(plants));
   }
 
-/*
-  TODO: Create new queries
-  Future<User?> getUserById(int userId) async {
+  Future<Plant> getPlantById(String plantId) async {
     final db = await database;
     final List<Map<String, dynamic>> maps = await db.query(
-      'users',
-      where: 'id = ?',
-      whereArgs: [userId],
+      'plants',
+      where: 'plantId = ?',
+      whereArgs: [plantId],
     );
 
-    if (maps.isNotEmpty) {
-      return User(
-        id: maps[0]['id'],
-        name: maps[0]['name'],
-        email: maps[0]['email'],
-        password: maps[0]['password'],
-        phoneNumber: maps[0]['phoneNumber'],
-      );
-    }
-
-    return null;
+    return Plant(
+      plantId: maps[0]['plantId'],
+      name: maps[0]['name'],
+      description: maps[0]['description'],
+      growZoneNumber: maps[0]['growZoneNumber'],
+      wateringInterval: maps[0]['wateringInterval'],
+      imageUrl: maps[0]['imageUrl'],
+    );
   }
 
+/*
   Future<void> deleteAllUsers() async {
     final db = await database;
     final Batch batch = db.batch();

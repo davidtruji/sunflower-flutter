@@ -1,4 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:sunflower_flutter/db_helper.dart';
+import 'package:sunflower_flutter/garden_planting.dart';
 import 'package:sunflower_flutter/plant.dart';
 import 'package:sunflower_flutter/shape.dart';
 
@@ -43,7 +47,7 @@ class PlantDetail extends StatelessWidget {
                       floatingActionButtonLocation:
                           FloatingActionButtonLocation.endFloat,
                       floatingActionButton: FloatingActionButton(
-                        onPressed: () {},
+                        onPressed: () => addPlantToGarden(),
                         heroTag: UniqueKey(),
                         shape: Shape.sunflowerShape,
                         child: const Icon(Icons.add),
@@ -78,5 +82,14 @@ class PlantDetail extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void addPlantToGarden() {
+    DBHelper helper = DBHelper();
+    helper.insertGardenPlanting(GardenPlanting(
+        gardenPlantingId: Random().nextInt(1000),
+        plantId: plant.plantId,
+        plantDate: DateTime.now().toString(),
+        lastWateringDate: DateTime.now().toString()));
   }
 }

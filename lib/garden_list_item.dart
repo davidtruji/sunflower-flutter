@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:sunflower_flutter/garden_planting.dart';
 import 'package:sunflower_flutter/plant.dart';
 import 'package:sunflower_flutter/plant_detail.dart';
 import 'package:sunflower_flutter/shape.dart';
 
 class GardenListItem extends StatelessWidget {
-  const GardenListItem({super.key, required this.plant});
+  const GardenListItem(
+      {super.key, required this.plant, required this.gardenPlanting});
 
   final Plant plant;
+  final GardenPlanting gardenPlanting;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +24,6 @@ class GardenListItem extends StatelessWidget {
               .secondaryContainer
               .withOpacity(0.12),
           onTap: () {
-            debugPrint('Card tapped.');
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => PlantDetail(plant: plant),
@@ -30,13 +32,14 @@ class GardenListItem extends StatelessWidget {
           },
           child: Column(
             children: [
-              Image.asset(
-                "assets/sunflower.jpg",
-                fit: BoxFit.fitWidth,
+              Image.network(
+                plant.imageUrl,
+                height: 100,
+                fit: BoxFit.cover,
               ),
-              titleSection(context, "Sunflower"),
-              seededSection(context, "seeded"),
-              irrigationSection(context, "irrigation"),
+              titleSection(context, plant.name),
+              seededSection(context, gardenPlanting.plantDate),
+              irrigationSection(context, gardenPlanting.lastWateringDate),
             ],
           ),
         ));

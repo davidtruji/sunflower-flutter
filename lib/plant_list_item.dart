@@ -21,7 +21,6 @@ class PlantListItem extends StatelessWidget {
               .secondaryContainer
               .withOpacity(0.12),
           onTap: () {
-            debugPrint('Card tapped.');
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => PlantDetail(plant: plant),

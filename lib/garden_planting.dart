@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart' show immutable;
 
 @immutable
 class GardenPlanting {
-  final Long gardenPlantingId;
+  final int gardenPlantingId;
   final String plantId;
   final String plantDate;
   final String lastWateringDate;
