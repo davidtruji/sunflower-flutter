@@ -24,7 +24,7 @@ class PlantListItem extends StatelessWidget {
             debugPrint('Card tapped.');
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => const PlantDetail(),
+                builder: (context) => PlantDetail(plant: plant),
               ),
             );
           },
@@ -57,7 +57,9 @@ class SectionTitle extends StatelessWidget {
       alignment: Alignment.center,
       padding: const EdgeInsets.all(10),
       child: Text(title,
-          maxLines: 1,softWrap: true, style: Theme.of(context).textTheme.titleMedium),
+          maxLines: 1,
+          softWrap: true,
+          style: Theme.of(context).textTheme.titleMedium),
     );
   }
 }

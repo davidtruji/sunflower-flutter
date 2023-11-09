@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:sunflower_flutter/garden_list_item.dart';
 import 'package:responsive_grid_list/responsive_grid_list.dart';
+import 'package:sunflower_flutter/plant.dart';
 
 class MyGardenScreen extends StatelessWidget {
   MyGardenScreen({super.key});
@@ -12,7 +12,7 @@ class MyGardenScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     for (int i = 0; i < 100; i++) {
-      gardenList.add(const GardenListItem());
+      gardenList.add( const GardenListItem(plant: Plant(plantId: "1", name: "Plant", description: "description", growZoneNumber: 3, wateringInterval: 4, imageUrl: "imageUrl"),));
     }
 
     return ResponsiveGridList(

@@ -22,7 +22,7 @@ class PlantListState extends State<PlantListScreen> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Plant>>(
-        future: helper.getAllUsers(),
+        future: helper.getAllPlants(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());

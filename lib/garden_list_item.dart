@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:sunflower_flutter/plant.dart';
 import 'package:sunflower_flutter/plant_detail.dart';
 import 'package:sunflower_flutter/shape.dart';
 
 class GardenListItem extends StatelessWidget {
-  const GardenListItem({super.key});
+  const GardenListItem({super.key, required this.plant});
+
+  final Plant plant;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +24,7 @@ class GardenListItem extends StatelessWidget {
             debugPrint('Card tapped.');
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => const PlantDetail(),
+                builder: (context) => PlantDetail(plant: plant),
               ),
             );
           },

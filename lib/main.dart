@@ -7,15 +7,6 @@ import 'package:sunflower_flutter/color_schemes.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  final DBHelper helper = DBHelper();
-  helper.readPlantsFromJSON().then((plants) {
-    debugPrint("EXECUTING FUTURE");
-    for (Plant p in plants) {
-      debugPrint("Insert plant: ${p.name}");
-      helper.insertPlant(p);
-    }
-  });
-
   runApp(const TabBarApp());
 }
 

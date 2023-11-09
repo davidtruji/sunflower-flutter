@@ -46,6 +46,7 @@ class DBHelper {
   }
 
   Future<void> _onCreate(Database database, int version) async {
+    debugPrint("Creating database");
     final db = database;
     await db.execute(""" CREATE TABLE IF NOT EXISTS plants(
             plantId TEXT PRIMARY KEY,
@@ -56,10 +57,12 @@ class DBHelper {
             imageUrl TEXT
           )
  """);
+
+    // Only executes the first time
+    populateDataBase();
   }
 
   Future<List<Plant>> readPlantsFromJSON() async {
-    debugPrint("READING PLANTS JSON");
     try {
       final String response = await rootBundle.loadString('assets/plants.json');
       final parsed =
@@ -71,7 +74,7 @@ class DBHelper {
     }
   }
 
-  Future<List<Plant>> getAllUsers() async {
+  Future<List<Plant>> getAllPlants() async {
     final db = await database;
     final List<Map<String, dynamic>> maps = await db.query('plants');
 
@@ -92,39 +95,29 @@ class DBHelper {
     db.insert(
       "plants",
       plant.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
+      conflictAlgorithm: ConflictAlgorithm.ignore,
     );
     return plant;
   }
 
-/*
-  Future<List<User>> batchInsert() async {
+  void batchInsert(List<Plant> plantList) async {
     final db = await database;
     final batch = db.batch();
-    final Random random = Random();
-    final List<User> userList = List.generate(
-      1000,
-      (index) => User(
-        id: index + 1,
-        name: 'User $index',
-        email: 'user$index@example.com',
-        password: random.nextInt(9999),
-        phoneNumber: random.nextInt(10000),
-      ),
-    );
-    for (final User user in userList) {
+
+    for (final Plant plant in plantList) {
       batch.insert(
-        'users',
-        user.toMap(),
-        conflictAlgorithm: ConflictAlgorithm.replace,
+        'plants',
+        plant.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.ignore,
       );
     }
     await batch.commit();
-    return userList;
   }
 
-
-   */
+  void populateDataBase() async {
+    debugPrint("Populate database");
+    readPlantsFromJSON().then((plants) => batchInsert(plants));
+  }
 
 /*
   TODO: Create new queries
