@@ -68,7 +68,7 @@ class GardenListItem extends StatelessWidget {
 
   Widget seededSection(BuildContext context, String seeded) {
     return Padding(
-      padding: EdgeInsets.all(8),
+      padding: const EdgeInsets.all(8),
       child: Column(
         children: [
           const Text("Plantada", style: TextStyle(fontWeight: FontWeight.bold)),

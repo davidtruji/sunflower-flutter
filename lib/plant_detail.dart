@@ -91,7 +91,7 @@ class PlantDetail extends StatelessWidget {
   void addPlantToGarden(BuildContext context) {
     DBHelper helper = DBHelper();
     DateTime dateNow = DateTime.now();
-    DateFormat formatter = DateFormat("MMMM d, y");
+    DateFormat formatter = DateFormat("MMM d, y");
 
     helper.insertGardenPlanting(GardenPlanting(
         gardenPlantingId: Random().nextInt(1000),
