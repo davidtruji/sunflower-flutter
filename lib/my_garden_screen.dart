@@ -61,10 +61,8 @@ class GardenListState extends State<MyGardenScreen> {
       ),
       FilledButton(
         style: ButtonStyle(shape: Shape.filledButtonShape),
-        onPressed: () {
-          MyApp.tabScreenKey.currentState?.tabController.animateTo(1);
-          //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TabScreen(1)));
-        },
+        onPressed: () =>
+            MyApp.tabScreenKey.currentState?.tabController.animateTo(1),
         child: const Text("Añadir planta"),
       )
     ]);
