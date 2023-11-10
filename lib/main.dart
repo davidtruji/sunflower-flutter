@@ -5,29 +5,32 @@ import 'package:sunflower_flutter/color_schemes.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const TabBarApp());
+  runApp(const MyApp());
 }
 
-class TabBarApp extends StatelessWidget {
-  const TabBarApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       themeMode: ThemeMode.system,
-      home: const TabBarExample(),
+      home: TabScreen(0),
       theme: ThemeData(useMaterial3: true, colorScheme: lightColorScheme),
       darkTheme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
     );
   }
 }
 
-class TabBarExample extends StatelessWidget {
-  const TabBarExample({super.key});
+// ignore: must_be_immutable
+class TabScreen extends StatelessWidget {
+  int selectedPage;
+  TabScreen(this.selectedPage, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
+      initialIndex: selectedPage,
       length: 2,
       child: Scaffold(
         appBar: AppBar(
