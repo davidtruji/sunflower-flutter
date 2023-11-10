@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sunflower_flutter/garden_list_item.dart';
 import 'package:responsive_grid_list/responsive_grid_list.dart';
-import 'package:sunflower_flutter/garden_planting.dart';
-import 'package:sunflower_flutter/plant.dart';
-import 'package:sunflower_flutter/plant_garden_planting.dart';
 import 'package:sunflower_flutter/plant_garden_planting.dart';
 
 import 'db_helper.dart';

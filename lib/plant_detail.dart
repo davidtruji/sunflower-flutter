@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sunflower_flutter/db_helper.dart';
@@ -94,7 +92,7 @@ class PlantDetail extends StatelessWidget {
     DateFormat formatter = DateFormat("MMM d, y");
 
     helper.insertGardenPlanting(GardenPlanting(
-        gardenPlantingId: Random().nextInt(1000),
+        gardenPlantingId: plant.plantId,
         plantId: plant.plantId,
         plantDate: formatter.format(dateNow),
         lastWateringDate: formatter.format(dateNow)));

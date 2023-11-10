@@ -1,10 +1,8 @@
-import 'dart:ffi';
-
 import 'package:flutter/foundation.dart' show immutable;
 
 @immutable
 class GardenPlanting {
-  final int gardenPlantingId;
+  final String gardenPlantingId;
   final String plantId;
   final String plantDate;
   final String lastWateringDate;

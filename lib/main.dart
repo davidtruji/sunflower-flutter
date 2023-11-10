@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sunflower_flutter/db_helper.dart';
 import 'package:sunflower_flutter/my_garden_screen.dart';
-import 'package:sunflower_flutter/plant.dart';
 import 'package:sunflower_flutter/plant_list_screen.dart';
 import 'package:sunflower_flutter/color_schemes.dart';
 

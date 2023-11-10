@@ -64,7 +64,7 @@ class DBHelper {
 
     // Create garden table
     await db.execute(""" CREATE TABLE IF NOT EXISTS garden_plantings(
-            gardenPlantingId INTEGER PRIMARY KEY,
+            gardenPlantingId TEXT PRIMARY KEY,
             plantId TEXT,
             plantDate TEXT,
             lastWateringDate TEXT
@@ -185,16 +185,4 @@ class DBHelper {
     );
   }
 
-/*
-  Future<void> deleteAllUsers() async {
-    final db = await database;
-    final Batch batch = db.batch();
-
-    batch.delete('users');
-
-    await batch.commit();
-  }
-
-
-   */
 }
