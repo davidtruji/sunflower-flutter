@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:sunflower_flutter/db_helper.dart';
 import 'package:sunflower_flutter/garden_planting.dart';
 import 'package:sunflower_flutter/plant.dart';
@@ -9,6 +10,9 @@ import 'package:sunflower_flutter/shape.dart';
 class PlantDetail extends StatelessWidget {
   const PlantDetail({super.key, required this.plant});
 
+  static const snackBar = SnackBar(
+    content: Text('Planta añadida al jardín'),
+  );
   final Plant plant;
 
   @override
@@ -47,7 +51,7 @@ class PlantDetail extends StatelessWidget {
                       floatingActionButtonLocation:
                           FloatingActionButtonLocation.endFloat,
                       floatingActionButton: FloatingActionButton(
-                        onPressed: () => addPlantToGarden(),
+                        onPressed: () => addPlantToGarden(context),
                         heroTag: UniqueKey(),
                         shape: Shape.sunflowerShape,
                         child: const Icon(Icons.add),
@@ -76,20 +80,25 @@ class PlantDetail extends StatelessWidget {
       padding: const EdgeInsets.all(8),
       child: Column(
         children: [
-          Text("Necesita ser regada",
-              style: Theme.of(context).textTheme.labelMedium),
+          const Text("Necesita ser regada",
+              style: TextStyle(fontWeight: FontWeight.bold)),
           Text("Cada $wateringInterval días."),
         ],
       ),
     );
   }
 
-  void addPlantToGarden() {
+  void addPlantToGarden(BuildContext context) {
     DBHelper helper = DBHelper();
+    DateTime dateNow = DateTime.now();
+    DateFormat formatter = DateFormat("MMMM d, y");
+
     helper.insertGardenPlanting(GardenPlanting(
         gardenPlantingId: Random().nextInt(1000),
         plantId: plant.plantId,
-        plantDate: DateTime.now().toString(),
-        lastWateringDate: DateTime.now().toString()));
+        plantDate: formatter.format(dateNow),
+        lastWateringDate: formatter.format(dateNow)));
+
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }

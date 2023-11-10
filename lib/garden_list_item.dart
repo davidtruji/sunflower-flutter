@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sunflower_flutter/garden_planting.dart';
-import 'package:sunflower_flutter/plant.dart';
 import 'package:sunflower_flutter/plant_detail.dart';
 import 'package:sunflower_flutter/plant_garden_planting.dart';
 import 'package:sunflower_flutter/shape.dart';
@@ -56,14 +54,13 @@ class GardenListItem extends StatelessWidget {
     int wateringInterval,
   ) {
     return Padding(
-      padding: EdgeInsets.all(8),
+      padding: const EdgeInsets.all(8),
       child: Column(
         children: [
-          Text("Última vez regada",
-              style: Theme.of(context).textTheme.labelMedium),
+          const Text("Última vez regada",
+              style: TextStyle(fontWeight: FontWeight.bold)),
           Text(lastWateringDate, style: Theme.of(context).textTheme.bodyMedium),
-          Text("Regar en $wateringInterval días",
-              style: Theme.of(context).textTheme.bodyMedium),
+          Text("Regar en $wateringInterval días"),
         ],
       ),
     );
@@ -74,9 +71,8 @@ class GardenListItem extends StatelessWidget {
       padding: EdgeInsets.all(8),
       child: Column(
         children: [
-          Text("Plantada", style: Theme.of(context).textTheme.labelMedium),
-          Text("10 de Oct, 2023",
-              style: Theme.of(context).textTheme.bodyMedium),
+          const Text("Plantada", style: TextStyle(fontWeight: FontWeight.bold)),
+          Text(seeded),
         ],
       ),
     );
