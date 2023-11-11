@@ -1,0 +1,10 @@
+# Icon launcher config
+icons_launcher:
+  image_path: "assets/sunflower_icon.png"
+  platforms:
+    android:
+      enable: true
+    windows:
+      enable: true
+    linux:
+      enable: true

@@ -45,6 +45,7 @@ dependencies:
   sqlite3_flutter_libs: ^0.5.18
   sqflite: ^2.3.0
   intl: ^0.18.1
+  icons_launcher: ^2.1.5
 
 dev_dependencies:
   flutter_test:
