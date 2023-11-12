@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sunflower_flutter/db_helper.dart';
+import 'package:sunflower_flutter/gallery_screen.dart';
 import 'package:sunflower_flutter/garden_planting.dart';
 import 'package:sunflower_flutter/plant.dart';
 import 'package:sunflower_flutter/shape.dart';
@@ -64,8 +65,19 @@ class PlantDetail extends StatelessWidget {
               child: Padding(
             padding: const EdgeInsets.all(24),
             child: Column(children: [
-              Text(plant.name,
-                  style: Theme.of(context).textTheme.displayMedium),
+              Row(
+                children: [
+                  Text(plant.name,
+                      style: Theme.of(context).textTheme.displayMedium),
+                  IconButton(
+                      icon: const Icon(Icons.photo_library),
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const GalleryScreen(),
+                        ));
+                      }),
+                ],
+              ),
               plantIrrigation(context, plant.wateringInterval),
               Text(plant.description),
             ]),

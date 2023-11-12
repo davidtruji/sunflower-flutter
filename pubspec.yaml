@@ -46,6 +46,7 @@ dependencies:
   sqflite: ^2.3.0
   intl: ^0.18.1
   icons_launcher: ^2.1.5
+  http: ^1.1.0
 
 dev_dependencies:
   flutter_test:
