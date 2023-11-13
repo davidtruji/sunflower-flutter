@@ -66,6 +66,7 @@ class PlantDetail extends StatelessWidget {
             padding: const EdgeInsets.all(24),
             child: Column(children: [
               Row(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(plant.name,
                       style: Theme.of(context).textTheme.displayMedium),
@@ -73,7 +74,8 @@ class PlantDetail extends StatelessWidget {
                       icon: const Icon(Icons.photo_library),
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const GalleryScreen(),
+                          builder: (context) =>
+                              GalleryScreen(query: plant.name),
                         ));
                       }),
                 ],

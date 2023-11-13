@@ -1,18 +1,52 @@
 import 'package:sunflower_flutter/unsplash_user.dart';
 
 class UnsplashPhoto {
-  final String id;
-  final String unsplashPhotoUrl;
-  final UnsplashUser user;
+  String? id;
+  Urls? urls;
+  User? user;
 
-  UnsplashPhoto(
-      {required this.id, required this.unsplashPhotoUrl, required this.user});
+  UnsplashPhoto({
+    this.id,
+    this.urls,
+    this.user,
+  });
 
-  factory UnsplashPhoto.fromJson(Map<String, dynamic> json) {
-    return UnsplashPhoto(
-      id: json["plantId"],
-      unsplashPhotoUrl: json["name"],
-      user: json["description"],
-    );
+  UnsplashPhoto.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    urls = json['urls'] != null ? Urls.fromJson(json['urls']) : null;
+    user = json['user'] != null ? User.fromJson(json['user']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+
+    if (urls != null) {
+      data['urls'] = urls!.toJson();
+    }
+
+    if (user != null) {
+      data['user'] = user!.toJson();
+    }
+
+    return data;
+  }
+}
+
+class Urls {
+  String? small;
+
+  Urls({
+    this.small,
+  });
+
+  Urls.fromJson(Map<String, dynamic> json) {
+    small = json['small'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['small'] = small;
+    return data;
   }
 }
