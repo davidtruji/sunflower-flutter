@@ -74,9 +74,8 @@ class PlantDetail extends StatelessWidget {
                       icon: const Icon(Icons.photo_library),
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) =>
-                              GalleryScreen(query: plant.name),
-                        ));
+                            builder: (context) =>
+                                GalleryScreen(query: plant.name)));
                       }),
                 ],
               ),

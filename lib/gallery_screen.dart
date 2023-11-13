@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:sunflower_flutter/plant.dart';
 import 'package:sunflower_flutter/plant_list_item.dart';
-import 'package:responsive_grid_list/responsive_grid_list.dart';
+import 'package:sunflower_flutter/unsplash_api.dart';
 import 'package:sunflower_flutter/unsplash_photo.dart';
-import 'package:sunflower_flutter/unsplash_search_result.dart';
-import 'unsplash_api.dart';
 
 class GalleryScreen extends StatefulWidget {
   const GalleryScreen({super.key, required this.query});
@@ -12,59 +11,70 @@ class GalleryScreen extends StatefulWidget {
   final String query;
 
   @override
-  GalleryScreenState createState() => GalleryScreenState(query: query);
+  // ignore: no_logic_in_create_state
+  GalleryScreenState createState() => GalleryScreenState(query);
 }
 
 class GalleryScreenState extends State<GalleryScreen> {
-  late Future<UnsplashSearchResults> futureAlbum;
+  GalleryScreenState(this.query);
+
+  static const _pageSize = UnsplashAPI.PAGE_SIZE;
   final String query;
 
-  GalleryScreenState({required this.query});
+  final PagingController<int, UnsplashPhoto> _pagingController =
+      PagingController(firstPageKey: 0);
 
   @override
   void initState() {
+    _pagingController.addPageRequestListener((pageKey) {
+      _fetchPage(query, pageKey);
+    });
     super.initState();
-    futureAlbum = UnsplashAPI().fetchGallery(query, 1);
+  }
+
+  Future<void> _fetchPage(String query, int pageKey) async {
+    try {
+      final newItems = await UnsplashAPI.fetchGallery(query, pageKey);
+      final isLastPage = newItems.results!.length < _pageSize;
+      if (isLastPage) {
+        _pagingController.appendLastPage(newItems.results!);
+      } else {
+        final nextPageKey = pageKey + newItems.results!.length;
+        _pagingController.appendPage(newItems.results!, nextPageKey);
+      }
+    } catch (error) {
+      _pagingController.error = error;
+    }
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(title: const Text("Fotos por Unsplash")),
-        body: FutureBuilder<UnsplashSearchResults>(
-            future: futureAlbum,
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
-              } else if (snapshot.hasError) {
-                return Center(child: Text('Error: ${snapshot.error}'));
-              } else if (!snapshot.hasData) {
-                return const Center(child: Text('No results.'));
-              } else {
-                final searchResults = snapshot.data;
-                List<PlantListItem> plantList = [];
+        body: Padding(
+            padding: const EdgeInsets.all(16),
+            child: PagedGridView<int, UnsplashPhoto>(
+              pagingController: _pagingController,
+              builderDelegate: PagedChildBuilderDelegate<UnsplashPhoto>(
+                  itemBuilder: (context, item, index) => PlantListItem(
+                        plant: Plant(
+                            plantId: "plantId",
+                            name: item.user!.username!,
+                            description: "description",
+                            growZoneNumber: 0,
+                            wateringInterval: 0,
+                            imageUrl: item.urls!.small!),
+                      )),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  mainAxisSpacing: 16,
+                  crossAxisSpacing: 16,
+                  crossAxisCount:
+                      (MediaQuery.of(context).size.width ~/ 150).toInt()),
+            )),
+      );
 
-                for (UnsplashPhoto r in searchResults!.results!) {
-                  plantList.add(PlantListItem(
-                    plant: Plant(
-                        plantId: "plantId",
-                        name: r.user!.username!,
-                        description: "description",
-                        growZoneNumber: 0,
-                        wateringInterval: 0,
-                        imageUrl: r.urls!.small!),
-                  ));
-                }
-
-                return ResponsiveGridList(
-                  minItemWidth: 150,
-                  verticalGridMargin: 16,
-                  verticalGridSpacing: 16,
-                  horizontalGridMargin: 16,
-                  horizontalGridSpacing: 16,
-                  children: plantList,
-                );
-              }
-            }));
+  @override
+  void dispose() {
+    _pagingController.dispose();
+    super.dispose();
   }
 }

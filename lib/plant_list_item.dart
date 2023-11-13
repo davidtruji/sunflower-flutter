@@ -30,10 +30,12 @@ class PlantListItem extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Image.network(
-                plant.imageUrl,
-                height: 100,
-                fit: BoxFit.cover,
+              Expanded(
+                child: Image.network(
+                  height: 100,
+                  plant.imageUrl,
+                  fit: BoxFit.cover,
+                ),
               ),
               SectionTitle(title: plant.name),
             ],
