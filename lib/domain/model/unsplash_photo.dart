@@ -1,4 +1,5 @@
-import 'package:sunflower_flutter/unsplash_user.dart';
+
+import 'package:sunflower_flutter/domain/model/unsplash_user.dart';
 
 class UnsplashPhoto {
   String? id;

@@ -34,6 +34,16 @@ class Plant {
     };
   }
 
+  factory Plant.instance() {
+    return const Plant(
+        plantId: "",
+        name: "",
+        description: "",
+        growZoneNumber: 0,
+        wateringInterval: 0,
+        imageUrl: "");
+  }
+
   factory Plant.fromJson(Map<String, dynamic> json) {
     return Plant(
         plantId: json["plantId"],

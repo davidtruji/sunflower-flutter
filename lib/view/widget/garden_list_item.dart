@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:sunflower_flutter/plant_detail.dart';
-import 'package:sunflower_flutter/plant_garden_planting.dart';
-import 'package:sunflower_flutter/shape.dart';
+import 'package:sunflower_flutter/domain/model/plant_garden_planting.dart';
+import 'package:sunflower_flutter/view/widget/shape.dart';
 
 class GardenListItem extends StatelessWidget {
-  const GardenListItem({super.key, required this.plantGardenPlanting});
+  const GardenListItem(
+      {super.key, required this.plantGardenPlanting, required this.onTap});
 
   final PlantGardenPlanting plantGardenPlanting;
+  final Function onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -20,14 +21,7 @@ class GardenListItem extends StatelessWidget {
               .colorScheme
               .secondaryContainer
               .withOpacity(0.12),
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) =>
-                    PlantDetail(plant: plantGardenPlanting.plant),
-              ),
-            );
-          },
+          onTap: () => onTap(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [

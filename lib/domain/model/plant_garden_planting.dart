@@ -1,5 +1,5 @@
-import 'package:sunflower_flutter/garden_planting.dart';
-import 'package:sunflower_flutter/plant.dart';
+import 'package:sunflower_flutter/domain/model/garden_planting.dart';
+import 'package:sunflower_flutter/domain/model/plant.dart';
 
 class PlantGardenPlanting {
   final Plant plant;

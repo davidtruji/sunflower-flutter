@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:sunflower_flutter/plant.dart';
-import 'package:sunflower_flutter/plant_detail.dart';
-import 'package:sunflower_flutter/shape.dart';
+import 'package:sunflower_flutter/domain/model/plant.dart';
+import 'package:sunflower_flutter/view/widget/shape.dart';
 
 class PlantListItem extends StatelessWidget {
-  const PlantListItem({super.key, required this.plant});
+  const PlantListItem({super.key, required this.plant, required this.onTap});
 
   final Plant plant;
+  final Function onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -20,13 +20,7 @@ class PlantListItem extends StatelessWidget {
               .colorScheme
               .secondaryContainer
               .withOpacity(0.12),
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => PlantDetail(plant: plant),
-              ),
-            );
-          },
+          onTap: () => onTap(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [

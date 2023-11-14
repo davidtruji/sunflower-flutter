@@ -1,4 +1,5 @@
-import 'package:sunflower_flutter/unsplash_photo.dart';
+
+import 'package:sunflower_flutter/domain/model/unsplash_photo.dart';
 
 class UnsplashSearchResults {
   int? total;
