@@ -15,7 +15,7 @@ class PlantDetailViewModel extends RootViewModel {
   final nav.Navigator navigator;
 
   Plant? plant;
-  late bool addedToGarden;
+  bool addedToGarden = true;
 
   PlantDetailViewModel(
     this.plantRepository,

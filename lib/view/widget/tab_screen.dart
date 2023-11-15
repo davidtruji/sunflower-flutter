@@ -18,6 +18,7 @@ class TabScreen extends RootWidget<TabScreenViewModel> {
           centerTitle: true,
           title: const Text('Sunflower'),
           bottom: const TabBar(
+            indicatorSize: TabBarIndicatorSize.tab,
             tabs: [
               Tab(
                 icon: Icon(Icons.local_florist, size: 36),
