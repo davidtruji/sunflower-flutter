@@ -21,9 +21,9 @@ class GardenPlantingDao {
     });
   }
 
-  void insertGardenPlanting(GardenPlanting gardenPlanting) async {
+  Future<void> insertGardenPlanting(GardenPlanting gardenPlanting) async {
     final db = database;
-    db.insert(
+    await db.insert(
       "garden_plantings",
       gardenPlanting.toMap(),
       conflictAlgorithm: ConflictAlgorithm.ignore,

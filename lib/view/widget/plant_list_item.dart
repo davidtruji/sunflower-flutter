@@ -26,6 +26,14 @@ class PlantListItem extends StatelessWidget {
             children: [
               Expanded(
                 child: Image.network(
+                  loadingBuilder: (context, child, loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return const SizedBox(
+                        height: 100,
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ));
+                  },
                   height: 100,
                   plant.imageUrl,
                   fit: BoxFit.cover,

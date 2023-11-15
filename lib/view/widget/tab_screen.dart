@@ -13,7 +13,9 @@ class TabScreen extends RootWidget<TabScreenViewModel> {
   TabScreen({super.key}) : super(getIt());
 
   @override
-  Widget widget(TabScreenViewModel model) {
+  Widget widget(TabScreenViewModel model, BuildContext context) {
+    debugPrint("TABSCREEN WIDGET");
+
     return DefaultTabController(
       length: 2,
       child: Scaffold(

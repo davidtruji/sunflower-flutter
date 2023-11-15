@@ -37,7 +37,7 @@ class SqliteLocal extends Local {
     List<Plant> plants = await plantDao.getAllPlants();
 
     if (plants.isEmpty) {
-      await populateDataBase();
+      await populateDataBase(); // Initializes DB on first time execution
     }
 
     return plantDao.getAllPlants();
@@ -63,18 +63,19 @@ class SqliteLocal extends Local {
   }
 
   @override
-  void insertGardenPlanting(GardenPlanting gardenPlanting) async {
-    gardenPlantingDao.insertGardenPlanting(gardenPlanting);
+  Future<void> insertGardenPlanting(GardenPlanting gardenPlanting) async {
+    await gardenPlantingDao.insertGardenPlanting(gardenPlanting);
   }
 
   @override
-  void batchPlantInsert(List<Plant> plantList) async {
-    plantDao.batchInsert(plantList);
+  Future<void> batchPlantInsert(List<Plant> plantList) async {
+    await plantDao.batchInsert(plantList);
   }
 
   Future<void> populateDataBase() async {
     debugPrint("Populate database");
-    readPlantsFromJSON().then((plants) => batchPlantInsert(plants));
+    List<Plant> plants = await readPlantsFromJSON();
+    await batchPlantInsert(plants);
   }
 
   @override

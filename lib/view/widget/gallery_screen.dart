@@ -14,7 +14,7 @@ class GalleryScroll extends RootWidget<GalleryViewModel> {
   GalleryScroll({super.key}) : super(getIt());
 
   @override
-  Widget widget(GalleryViewModel model) {
+  Widget widget(GalleryViewModel model, BuildContext context) {
     model.setQuery(Get.arguments);
     return GalleryScreen(
       query: Get.arguments,
@@ -39,7 +39,7 @@ class GalleryScreenState extends State<GalleryScreen> {
   final String query;
 
   final PagingController<int, UnsplashPhoto> _pagingController =
-  PagingController(firstPageKey: 0);
+      PagingController(firstPageKey: 0);
 
   @override
   void initState() {
@@ -65,16 +65,14 @@ class GalleryScreenState extends State<GalleryScreen> {
   }
 
   @override
-  Widget build(BuildContext context) =>
-      Scaffold(
+  Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(title: const Text("Fotos por Unsplash")),
         body: Padding(
             padding: const EdgeInsets.all(16),
             child: PagedGridView<int, UnsplashPhoto>(
               pagingController: _pagingController,
               builderDelegate: PagedChildBuilderDelegate<UnsplashPhoto>(
-                  itemBuilder: (context, item, index) =>
-                      PlantListItem(
+                  itemBuilder: (context, item, index) => PlantListItem(
                         plant: Plant(
                             plantId: "plantId",
                             name: item.user!.username!,
@@ -88,10 +86,7 @@ class GalleryScreenState extends State<GalleryScreen> {
                   mainAxisSpacing: 16,
                   crossAxisSpacing: 16,
                   crossAxisCount:
-                  (MediaQuery
-                      .of(context)
-                      .size
-                      .width ~/ 150).toInt()),
+                      (MediaQuery.of(context).size.width ~/ 150).toInt()),
             )),
       );
 

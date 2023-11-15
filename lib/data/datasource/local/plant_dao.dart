@@ -50,7 +50,7 @@ class PlantDao {
     );
   }
 
-  void batchInsert(List<Plant> plantList) async {
+  Future<void> batchInsert(List<Plant> plantList) async {
     final db = database;
     final batch = db.batch();
 

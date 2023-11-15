@@ -46,12 +46,11 @@ Future<void> domain() async {}
 
 Future<void> view() async {
   getIt.registerSingleton<nav.Navigator>(nav.Navigator());
-  getIt.registerFactory<TabScreenViewModel>(
-      () => TabScreenViewModel(getIt(), getIt(), getIt()));
-  getIt.registerFactory<PlantDetailViewModel>(
-      () => PlantDetailViewModel(getIt(), getIt(), getIt()));
-  getIt.registerFactory<GalleryViewModel>(
-      () => GalleryViewModel(getIt(), getIt()));
+  getIt.registerSingleton<TabScreenViewModel>(
+      TabScreenViewModel(getIt(), getIt(), getIt()));
+  getIt.registerSingleton<PlantDetailViewModel>(
+      PlantDetailViewModel(getIt(), getIt(), getIt()));
+  getIt.registerSingleton<GalleryViewModel>(GalleryViewModel(getIt(), getIt()));
 }
 
 Future<Database> getDataBase() async {

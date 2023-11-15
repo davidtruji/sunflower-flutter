@@ -26,6 +26,14 @@ class GardenListItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Image.network(
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return const SizedBox(
+                      height: 100,
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ));
+                },
                 plantGardenPlanting.plant.imageUrl,
                 height: 100,
                 fit: BoxFit.cover,

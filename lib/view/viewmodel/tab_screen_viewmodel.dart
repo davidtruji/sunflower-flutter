@@ -1,9 +1,7 @@
 import 'package:sunflower_flutter/domain/model/plant_garden_planting.dart';
 import 'package:sunflower_flutter/domain/repository/garden_planting_repository.dart';
 import 'package:sunflower_flutter/domain/repository/plant_repository.dart';
-import 'package:sunflower_flutter/view/viewmodel/plant_detail_viewmodel.dart';
 
-import '../../di/locator.dart';
 import '../../domain/model/plant.dart';
 import '../navigator.dart' as nav;
 import 'root_viewmodel.dart';
@@ -40,7 +38,6 @@ class TabScreenViewModel extends RootViewModel {
   }
 
   void onPlantTap(String id)  {
-    //getIt<PlantDetailViewModel>().onDetailIdFound(id);
     navigator.toPlantDetail(id);
   }
 }

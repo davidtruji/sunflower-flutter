@@ -10,12 +10,12 @@ class GardenPlantingRepositoryImpl extends GardenPlantingRepository {
   GardenPlantingRepositoryImpl(this.local);
 
   @override
-  Future<List<PlantGardenPlanting>> getPlantGardenPlanting() {
-    return local.getPlantGardenPlanting();
+  Future<List<PlantGardenPlanting>> getPlantGardenPlanting() async{
+    return await local.getPlantGardenPlanting();
   }
 
   @override
-  void addPlantToGarden(GardenPlanting gardenPlanting) {
-    local.insertGardenPlanting(gardenPlanting);
+  Future<void> addPlantToGarden(GardenPlanting gardenPlanting) async {
+    await local.insertGardenPlanting(gardenPlanting);
   }
 }

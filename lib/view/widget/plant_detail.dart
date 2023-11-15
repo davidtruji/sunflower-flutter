@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:sunflower_flutter/view/viewmodel/plant_detail_viewmodel.dart';
 import 'package:sunflower_flutter/view/widget/shape.dart';
 
@@ -15,8 +13,8 @@ class PlantDetail extends RootWidget<PlantDetailViewModel> {
   );
 
   @override
-  Widget widget(PlantDetailViewModel model) {
-    model.onDetailIdFound(Get.arguments);
+  Widget widget(PlantDetailViewModel model, BuildContext context) {
+    debugPrint("SE LLAMO  A WIDGET");
     return model.plant == null
         ? const Text("LOADING")
         : Scaffold(
@@ -46,6 +44,12 @@ class PlantDetail extends RootWidget<PlantDetailViewModel> {
                         children: [
                           Positioned.fill(
                               child: Image.network(
+                            loadingBuilder: (context, child, loadingProgress) {
+                              if (loadingProgress == null) return child;
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            },
                             model.plant!.imageUrl,
                             fit: BoxFit.cover,
                           )),
@@ -54,7 +58,11 @@ class PlantDetail extends RootWidget<PlantDetailViewModel> {
                             floatingActionButtonLocation:
                                 FloatingActionButtonLocation.endFloat,
                             floatingActionButton: FloatingActionButton(
-                              onPressed: () => model.addPlantToGarden(),
+                              onPressed: () => {
+                                model.addPlantToGarden(),
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar),
+                              },
                               heroTag: UniqueKey(),
                               shape: Shape.sunflowerShape,
                               child: const Icon(Icons.add),
@@ -72,7 +80,8 @@ class PlantDetail extends RootWidget<PlantDetailViewModel> {
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text(model.plant!.name),
+                        Text(model.plant!.name,
+                            style: Theme.of(context).textTheme.displaySmall),
                         IconButton(
                             icon: const Icon(Icons.photo_library),
                             onPressed: () => model.onTapGallery()),
@@ -90,24 +99,11 @@ class PlantDetail extends RootWidget<PlantDetailViewModel> {
       padding: const EdgeInsets.all(8),
       child: Column(
         children: [
-          const Text("Necesita ser regada"),
+          const Text("Necesita ser regada",
+              style: TextStyle(fontWeight: FontWeight.bold)),
           Text("Cada $wateringInterval días."),
         ],
       ),
     );
-  }
-
-  void addPlantToGarden(BuildContext context) {
-    // DBHelper helper = DBHelper();
-    DateTime dateNow = DateTime.now();
-    DateFormat formatter = DateFormat("MMM d, y");
-    // TODO: ADD PLANT
-    // helper.insertGardenPlanting(GardenPlanting(
-    //     gardenPlantingId: plant.plantId,
-    //     plantId: plant.plantId,
-    //     plantDate: formatter.format(dateNow),
-    //     lastWateringDate: formatter.format(dateNow)));
-
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }

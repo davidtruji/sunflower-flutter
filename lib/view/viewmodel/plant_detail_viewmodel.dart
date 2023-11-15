@@ -14,19 +14,7 @@ class PlantDetailViewModel extends RootViewModel {
   final GardenPlantingRepository gardenPlantingRepository;
   final nav.Navigator navigator;
 
-  Plant? plant; //TODO: Avoid exception not initialized
-
-  // String get plantId => _plant!.plantId;
-  //
-  // String get name => _plant!.name;
-  //
-  // String get description => _plant!.description;
-  //
-  // int get growZoneNumber => _plant!.growZoneNumber;
-  //
-  // int get wateringInterval => _plant!.wateringInterval;
-  //
-  // String get imageUrl => _plant!.imageUrl;
+  Plant? plant;
 
   PlantDetailViewModel(
     this.plantRepository,
@@ -54,12 +42,11 @@ class PlantDetailViewModel extends RootViewModel {
     navigator.toGallery(plant!.name);
   }
 
-  void addPlantToGarden() {
+  void addPlantToGarden() async {
     DateTime dateNow = DateTime.now();
     DateFormat formatter = DateFormat("MMM d, y");
-    // TODO: ADD PLANT
 
-    gardenPlantingRepository.addPlantToGarden(GardenPlanting(
+    await gardenPlantingRepository.addPlantToGarden(GardenPlanting(
         gardenPlantingId: plant!.plantId,
         plantId: plant!.plantId,
         plantDate: formatter.format(dateNow),

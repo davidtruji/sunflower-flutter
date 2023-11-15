@@ -5,5 +5,5 @@ import '../model/plant_garden_planting.dart';
 abstract class GardenPlantingRepository {
   Future<List<PlantGardenPlanting>> getPlantGardenPlanting();
 
-  void addPlantToGarden(GardenPlanting gardenPlanting);
+  Future<void> addPlantToGarden(GardenPlanting gardenPlanting);
 }

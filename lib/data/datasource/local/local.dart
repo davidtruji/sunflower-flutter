@@ -9,7 +9,7 @@ abstract class Local {
 
   Future<List<PlantGardenPlanting>> getPlantGardenPlanting();
 
-  void insertGardenPlanting(GardenPlanting gardenPlanting);
+  Future<void> insertGardenPlanting(GardenPlanting gardenPlanting);
 
   void batchPlantInsert(List<Plant> plantList);
 
