@@ -6,4 +6,6 @@ abstract class GardenPlantingRepository {
   Future<List<PlantGardenPlanting>> getPlantGardenPlanting();
 
   Future<void> addPlantToGarden(GardenPlanting gardenPlanting);
+
+  Future<bool> isAddedToGarden(String plantId);
 }

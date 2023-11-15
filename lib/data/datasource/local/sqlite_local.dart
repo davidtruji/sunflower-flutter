@@ -82,4 +82,9 @@ class SqliteLocal extends Local {
   Future<Plant> getPlantById(String plantId) {
     return plantDao.getPlantById(plantId);
   }
+
+  @override
+  Future<bool> isAddedToGarden(String plantId) {
+    return gardenPlantingDao.isAddedToGarden(plantId);
+  }
 }

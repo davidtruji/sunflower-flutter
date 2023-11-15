@@ -1,3 +1,4 @@
+import 'package:sunflower_flutter/domain/model/unsplash_search_result.dart';
 import 'package:sunflower_flutter/domain/repository/unsplash_repository.dart';
 import 'package:sunflower_flutter/view/viewmodel/root_viewmodel.dart';
 
@@ -17,16 +18,13 @@ class GalleryViewModel extends RootViewModel {
   );
 
   @override
-  initialize() {
-    // TODO: implement initialize
-  }
+  initialize() {}
 
   void setQuery(String query) {
     _query = query;
   }
 
-// void getPlants() async {
-//   _plants = await unsplashRepository.fetchGallery(query, page);
-//   notify();
-// }
+  Future<UnsplashSearchResults> fetchGallery(query, page) async {
+    return await unsplashRepository.fetchGallery(query, page);
+  }
 }

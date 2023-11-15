@@ -29,4 +29,15 @@ class GardenPlantingDao {
       conflictAlgorithm: ConflictAlgorithm.ignore,
     );
   }
+
+  Future<bool> isAddedToGarden(String plantId) async {
+    final db = database;
+    final List<Map<String, dynamic>> maps = await db.query(
+      'garden_plantings',
+      where: 'plantId = ?',
+      whereArgs: [plantId],
+    );
+
+    return maps.isNotEmpty;
+  }
 }

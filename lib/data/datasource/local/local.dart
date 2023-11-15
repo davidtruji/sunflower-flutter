@@ -14,4 +14,6 @@ abstract class Local {
   void batchPlantInsert(List<Plant> plantList);
 
   Future<Plant> getPlantById(String plantId);
+
+  Future<bool> isAddedToGarden(String plantId);
 }

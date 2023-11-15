@@ -14,7 +14,6 @@ class PlantDetail extends RootWidget<PlantDetailViewModel> {
 
   @override
   Widget widget(PlantDetailViewModel model, BuildContext context) {
-    debugPrint("SE LLAMO  A WIDGET");
     return model.plant == null
         ? const Text("LOADING")
         : Scaffold(
@@ -54,20 +53,22 @@ class PlantDetail extends RootWidget<PlantDetailViewModel> {
                             fit: BoxFit.cover,
                           )),
                           Scaffold(
-                            backgroundColor: Colors.transparent,
-                            floatingActionButtonLocation:
-                                FloatingActionButtonLocation.endFloat,
-                            floatingActionButton: FloatingActionButton(
-                              onPressed: () => {
-                                model.addPlantToGarden(),
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(snackBar),
-                              },
-                              heroTag: UniqueKey(),
-                              shape: Shape.sunflowerShape,
-                              child: const Icon(Icons.add),
-                            ),
-                          ),
+                              backgroundColor: Colors.transparent,
+                              floatingActionButtonLocation:
+                                  FloatingActionButtonLocation.endFloat,
+                              floatingActionButton: Visibility(
+                                visible: !model.addedToGarden,
+                                child: FloatingActionButton(
+                                  onPressed: () => {
+                                    model.addPlantToGarden(),
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(snackBar),
+                                  },
+                                  heroTag: UniqueKey(),
+                                  shape: Shape.sunflowerShape,
+                                  child: const Icon(Icons.add),
+                                ),
+                              )),
                         ],
                       ),
                     ),
@@ -81,7 +82,7 @@ class PlantDetail extends RootWidget<PlantDetailViewModel> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(model.plant!.name,
-                            style: Theme.of(context).textTheme.displaySmall),
+                            style: Theme.of(context).textTheme.headlineSmall),
                         IconButton(
                             icon: const Icon(Icons.photo_library),
                             onPressed: () => model.onTapGallery()),

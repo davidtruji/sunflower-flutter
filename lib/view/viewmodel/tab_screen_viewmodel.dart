@@ -16,7 +16,7 @@ class TabScreenViewModel extends RootViewModel {
 
   List<Plant> get plants => _plants;
 
-  List<PlantGardenPlanting> get gardenPLantings => _gardenPlantings;
+  List<PlantGardenPlanting> get gardenPlantings => _gardenPlantings;
 
   TabScreenViewModel(
       this.gardenPlantingRepository, this.plantRepository, this.navigator);

@@ -15,6 +15,7 @@ class PlantDetailViewModel extends RootViewModel {
   final nav.Navigator navigator;
 
   Plant? plant;
+  late bool addedToGarden;
 
   PlantDetailViewModel(
     this.plantRepository,
@@ -26,12 +27,17 @@ class PlantDetailViewModel extends RootViewModel {
   initialize() {}
 
   Future<void> onDetailIdFound(String plantId) async {
-    await getPlant(plantId);
+    await _getPlant(plantId);
+    await _getAddedToGarden(plantId);
+    notify();
   }
 
-  Future<void> getPlant(String id) async {
+  Future<void> _getPlant(String id) async {
     plant = await plantRepository.getPlantById(id);
-    notify();
+  }
+
+  Future<void> _getAddedToGarden(String plantId) async {
+    addedToGarden = await gardenPlantingRepository.isAddedToGarden(plantId);
   }
 
   void onTapBack() {
@@ -39,7 +45,7 @@ class PlantDetailViewModel extends RootViewModel {
   }
 
   void onTapGallery() {
-    navigator.toGallery(plant!.name);
+    navigator.toPlantGallery(plant!.name);
   }
 
   void addPlantToGarden() async {
@@ -52,6 +58,8 @@ class PlantDetailViewModel extends RootViewModel {
         plantDate: formatter.format(dateNow),
         lastWateringDate: formatter.format(dateNow)));
 
+    addedToGarden = true;
+    notify();
     getIt<TabScreenViewModel>().getGardenPlantings();
   }
 }
