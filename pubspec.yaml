@@ -52,6 +52,7 @@ dependencies:
   stacked: ^3.4.1+1
   get: ^4.6.6
   url_launcher: ^6.2.1
+  share_plus: ^7.2.1
 
 dev_dependencies:
   flutter_test:

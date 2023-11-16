@@ -29,9 +29,23 @@ class PlantDetail extends RootWidget<PlantDetailViewModel> {
                       pinned: true,
                       expandedHeight: 300.0,
                       collapsedHeight: 100.0,
+                      actions: [
+                        Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: FloatingActionButton(
+                            elevation: 0,
+                            heroTag: UniqueKey(),
+                            onPressed: () =>
+                                model.onTapShare(model.plant!.name),
+                            shape: const CircleBorder(),
+                            child: const Icon(Icons.share),
+                          ),
+                        ),
+                      ],
                       leading: Padding(
                         padding: const EdgeInsets.all(8),
                         child: FloatingActionButton(
+                          elevation: 0,
                           heroTag: UniqueKey(),
                           onPressed: () => model.onTapBack(),
                           shape: const CircleBorder(),

@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:sunflower_flutter/domain/model/garden_planting.dart';
 import 'package:sunflower_flutter/domain/repository/garden_planting_repository.dart';
 import 'package:sunflower_flutter/view/viewmodel/root_viewmodel.dart';
@@ -46,6 +47,11 @@ class PlantDetailViewModel extends RootViewModel {
 
   void onTapGallery() {
     navigator.toPlantGallery(plant!.name);
+  }
+
+  void onTapShare(String plantName) {
+    Share.share(
+        "Revisa la planta $plantName en la aplicación multiplataforma de Sunflower");
   }
 
   void addPlantToGarden() async {
