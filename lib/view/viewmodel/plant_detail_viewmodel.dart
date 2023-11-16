@@ -1,14 +1,13 @@
 import 'package:intl/intl.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:sunflower_flutter/di/locator.dart';
 import 'package:sunflower_flutter/domain/model/garden_planting.dart';
+import 'package:sunflower_flutter/domain/model/plant.dart';
 import 'package:sunflower_flutter/domain/repository/garden_planting_repository.dart';
+import 'package:sunflower_flutter/domain/repository/plant_repository.dart';
+import 'package:sunflower_flutter/view/navigator.dart' as nav;
 import 'package:sunflower_flutter/view/viewmodel/root_viewmodel.dart';
 import 'package:sunflower_flutter/view/viewmodel/tab_screen_viewmodel.dart';
-
-import '../../di/locator.dart';
-import '../../domain/model/plant.dart';
-import '../../domain/repository/plant_repository.dart';
-import '../navigator.dart' as nav;
 
 class PlantDetailViewModel extends RootViewModel {
   final PlantRepository plantRepository;
@@ -61,8 +60,11 @@ class PlantDetailViewModel extends RootViewModel {
     await gardenPlantingRepository.addPlantToGarden(GardenPlanting(
         gardenPlantingId: plant!.plantId,
         plantId: plant!.plantId,
+        name: plant!.name,
         plantDate: formatter.format(dateNow),
-        lastWateringDate: formatter.format(dateNow)));
+        lastWateringDate: formatter.format(dateNow),
+        wateringInterval: plant!.wateringInterval,
+        imageUrl: plant!.imageUrl));
 
     addedToGarden = true;
     notify();

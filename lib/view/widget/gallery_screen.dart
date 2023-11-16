@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:sunflower_flutter/di/locator.dart';
 import 'package:sunflower_flutter/domain/model/plant.dart';
+import 'package:sunflower_flutter/domain/model/unsplash_photo.dart';
 import 'package:sunflower_flutter/view/viewmodel/gallery_viewmodel.dart';
 import 'package:sunflower_flutter/view/widget/plant_list_item.dart';
 import 'package:sunflower_flutter/view/widget/root_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import '../../di/locator.dart';
-import '../../domain/model/unsplash_photo.dart';
 
 class GalleryScreen extends RootWidget<GalleryViewModel> {
   GalleryScreen({super.key}) : super(getIt());
@@ -17,12 +16,12 @@ class GalleryScreen extends RootWidget<GalleryViewModel> {
     try {
       final newItems =
           await model.fetchGallery(query, page); // Call in viewModel
-      final isLastPage = newItems.results!.length < 20;
+      final isLastPage = newItems.results.length < 20;
       if (isLastPage) {
-        pagingController.appendLastPage(newItems.results!);
+        pagingController.appendLastPage(newItems.results);
       } else {
-        final nextPage = page + newItems.results!.length;
-        pagingController.appendPage(newItems.results!, nextPage);
+        final nextPage = page + newItems.results.length;
+        pagingController.appendPage(newItems.results, nextPage);
       }
     } catch (error) {
       pagingController.error = error;
@@ -47,12 +46,12 @@ class GalleryScreen extends RootWidget<GalleryViewModel> {
                 itemBuilder: (context, item, index) => PlantListItem(
                       plant: Plant(
                           plantId: "",
-                          name: item.user!.name!,
+                          name: item.user.name,
                           description: "",
                           growZoneNumber: 0,
                           wateringInterval: 0,
-                          imageUrl: item.urls!.small!),
-                      onTap: () => launchURL(item.user!.username!),
+                          imageUrl: item.urls.toString()),
+                      onTap: () => launchURL(item.user.username),
                     )),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 mainAxisSpacing: 16,

@@ -6,9 +6,10 @@ import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:sunflower_flutter/data/datasource/local/garden_planting_dao.dart';
 import 'package:sunflower_flutter/data/datasource/local/local.dart';
 import 'package:sunflower_flutter/data/datasource/local/plant_dao.dart';
+import 'package:sunflower_flutter/data/model/garden_planting_data.dart';
+import 'package:sunflower_flutter/data/model/plant_data.dart';
 import 'package:sunflower_flutter/domain/model/garden_planting.dart';
 import 'package:sunflower_flutter/domain/model/plant.dart';
-import 'package:sunflower_flutter/domain/model/plant_garden_planting.dart';
 
 class SqliteLocal extends Local {
   final Database database;
@@ -20,12 +21,12 @@ class SqliteLocal extends Local {
     gardenPlantingDao = GardenPlantingDao(database);
   }
 
-  Future<List<Plant>> readPlantsFromJSON() async {
+  Future<List<PlantData>> _readPlantsFromJSON() async {
     try {
       final String response = await rootBundle.loadString('assets/plants.json');
       final parsed =
           (jsonDecode(response) as List).cast<Map<String, dynamic>>();
-      return parsed.map<Plant>((json) => Plant.fromJson(json)).toList();
+      return parsed.map<PlantData>((json) => PlantData.fromJson(json)).toList();
     } catch (e) {
       // If encountering an error, return 0
       return [];
@@ -37,26 +38,31 @@ class SqliteLocal extends Local {
     List<Plant> plants = await plantDao.getAllPlants();
 
     if (plants.isEmpty) {
-      await populateDataBase(); // Initializes DB on first time execution
+      await _populateDataBase(); // Initializes DB on first time execution
     }
 
     return plantDao.getAllPlants();
   }
 
-  @override
-  Future<List<GardenPlanting>> getGardenPlantings() async {
+  Future<List<GardenPlantingData>> _getGardenPlantings() async {
     return gardenPlantingDao.getGardenPlantings();
   }
 
   @override
-  Future<List<PlantGardenPlanting>> getPlantGardenPlanting() async {
-    List<GardenPlanting> gardenPlantings = await getGardenPlantings();
-    List<PlantGardenPlanting> plantGardenPlantings = [];
+  Future<List<GardenPlanting>> getGardenPlantings() async {
+    List<GardenPlantingData> gardenPlantings = await _getGardenPlantings();
+    List<GardenPlanting> plantGardenPlantings = [];
 
-    for (GardenPlanting g in gardenPlantings) {
+    for (GardenPlantingData g in gardenPlantings) {
       Plant p = await plantDao.getPlantById(g.plantId);
-      plantGardenPlantings
-          .add(PlantGardenPlanting(plant: p, gardenPlanting: g));
+      plantGardenPlantings.add(GardenPlanting(
+          gardenPlantingId: p.plantId,
+          plantId: p.plantId,
+          name: p.name,
+          wateringInterval: p.wateringInterval,
+          imageUrl: p.imageUrl,
+          plantDate: g.plantDate,
+          lastWateringDate: g.lastWateringDate));
     }
 
     return plantGardenPlantings;
@@ -72,9 +78,14 @@ class SqliteLocal extends Local {
     await plantDao.batchInsert(plantList);
   }
 
-  Future<void> populateDataBase() async {
+  Future<void> _populateDataBase() async {
     debugPrint("Populate database");
-    List<Plant> plants = await readPlantsFromJSON();
+    List<PlantData> jsonFilePlants = await _readPlantsFromJSON();
+
+    List<Plant> plants = List.generate(jsonFilePlants.length, (index) {
+      return jsonFilePlants[index].toPlant();
+    });
+
     await batchPlantInsert(plants);
   }
 

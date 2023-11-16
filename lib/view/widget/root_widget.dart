@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:sunflower_flutter/view/viewmodel/root_viewmodel.dart';
 
-import '../viewmodel/root_viewmodel.dart';
 
 abstract class RootWidget<T extends RootViewModel> extends StatelessWidget {
   final T _model;

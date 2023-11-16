@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:sunflower_flutter/domain/model/plant_garden_planting.dart';
+import 'package:sunflower_flutter/domain/model/garden_planting.dart';
 import 'package:sunflower_flutter/view/widget/shape.dart';
 
 class GardenListItem extends StatelessWidget {
   const GardenListItem(
-      {super.key, required this.plantGardenPlanting, required this.onTap});
+      {super.key, required this.gardenPlanting, required this.onTap});
 
-  final PlantGardenPlanting plantGardenPlanting;
+  final GardenPlanting gardenPlanting;
   final Function onTap;
 
   @override
@@ -34,17 +34,14 @@ class GardenListItem extends StatelessWidget {
                         child: CircularProgressIndicator(),
                       ));
                 },
-                plantGardenPlanting.plant.imageUrl,
+                gardenPlanting.imageUrl,
                 height: 100,
                 fit: BoxFit.cover,
               ),
-              titleSection(context, plantGardenPlanting.plant.name),
-              seededSection(
-                  context, plantGardenPlanting.gardenPlanting.plantDate),
-              irrigationSection(
-                  context,
-                  plantGardenPlanting.gardenPlanting.lastWateringDate,
-                  plantGardenPlanting.plant.wateringInterval),
+              titleSection(context, gardenPlanting.name),
+              seededSection(context, gardenPlanting.plantDate),
+              irrigationSection(context, gardenPlanting.lastWateringDate,
+                  gardenPlanting.wateringInterval),
             ],
           ),
         ));

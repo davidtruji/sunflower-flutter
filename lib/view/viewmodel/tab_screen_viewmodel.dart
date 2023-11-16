@@ -1,10 +1,9 @@
-import 'package:sunflower_flutter/domain/model/plant_garden_planting.dart';
+import 'package:sunflower_flutter/domain/model/garden_planting.dart';
+import 'package:sunflower_flutter/domain/model/plant.dart';
 import 'package:sunflower_flutter/domain/repository/garden_planting_repository.dart';
 import 'package:sunflower_flutter/domain/repository/plant_repository.dart';
-
-import '../../domain/model/plant.dart';
-import '../navigator.dart' as nav;
-import 'root_viewmodel.dart';
+import 'package:sunflower_flutter/view/navigator.dart' as nav;
+import 'package:sunflower_flutter/view/viewmodel/root_viewmodel.dart';
 
 class TabScreenViewModel extends RootViewModel {
   final PlantRepository plantRepository;
@@ -12,11 +11,11 @@ class TabScreenViewModel extends RootViewModel {
   final nav.Navigator navigator;
 
   List<Plant> _plants = [];
-  List<PlantGardenPlanting> _gardenPlantings = [];
+  List<GardenPlanting> _gardenPlantings = [];
 
   List<Plant> get plants => _plants;
 
-  List<PlantGardenPlanting> get gardenPlantings => _gardenPlantings;
+  List<GardenPlanting> get gardenPlantings => _gardenPlantings;
 
   TabScreenViewModel(
       this.gardenPlantingRepository, this.plantRepository, this.navigator);
@@ -33,11 +32,11 @@ class TabScreenViewModel extends RootViewModel {
   }
 
   void getGardenPlantings() async {
-    _gardenPlantings = await gardenPlantingRepository.getPlantGardenPlanting();
+    _gardenPlantings = await gardenPlantingRepository.getPlantGardenPlantings();
     notify();
   }
 
-  void onPlantTap(String id)  {
+  void onPlantTap(String id) {
     navigator.toPlantDetail(id);
   }
 }

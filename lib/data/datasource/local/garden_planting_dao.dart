@@ -1,18 +1,18 @@
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
-
-import '../../../domain/model/garden_planting.dart';
+import 'package:sunflower_flutter/data/model/garden_planting_data.dart';
+import 'package:sunflower_flutter/domain/model/garden_planting.dart';
 
 class GardenPlantingDao {
   final Database database;
 
   GardenPlantingDao(this.database);
 
-  Future<List<GardenPlanting>> getGardenPlantings() async {
+  Future<List<GardenPlantingData>> getGardenPlantings() async {
     final db = database;
     final List<Map<String, dynamic>> maps = await db.query('garden_plantings');
 
     return List.generate(maps.length, (index) {
-      return GardenPlanting(
+      return GardenPlantingData(
         gardenPlantingId: maps[index]['gardenPlantingId'],
         plantId: maps[index]['plantId'],
         plantDate: maps[index]['plantDate'],
@@ -23,9 +23,11 @@ class GardenPlantingDao {
 
   Future<void> insertGardenPlanting(GardenPlanting gardenPlanting) async {
     final db = database;
+    GardenPlantingData gardenPlantingData =
+        GardenPlantingData.fromGardenPlanting(gardenPlanting);
     await db.insert(
       "garden_plantings",
-      gardenPlanting.toMap(),
+      gardenPlantingData.toMap(),
       conflictAlgorithm: ConflictAlgorithm.ignore,
     );
   }

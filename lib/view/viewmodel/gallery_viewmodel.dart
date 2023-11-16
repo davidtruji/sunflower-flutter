@@ -1,8 +1,7 @@
 import 'package:sunflower_flutter/domain/model/unsplash_search_result.dart';
 import 'package:sunflower_flutter/domain/repository/unsplash_repository.dart';
+import 'package:sunflower_flutter/view/navigator.dart' as nav;
 import 'package:sunflower_flutter/view/viewmodel/root_viewmodel.dart';
-
-import '../navigator.dart' as nav;
 
 class GalleryViewModel extends RootViewModel {
   final UnsplashRepository unsplashRepository;
@@ -24,7 +23,7 @@ class GalleryViewModel extends RootViewModel {
     _query = query;
   }
 
-  Future<UnsplashSearchResults> fetchGallery(query, page) async {
+  Future<UnsplashSearchResult> fetchGallery(query, page) async {
     return await unsplashRepository.fetchGallery(query, page);
   }
 }

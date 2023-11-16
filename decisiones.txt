@@ -4,3 +4,4 @@
  para evitar bucles(vista -> viewmodel -> vista), para permitir esto se generaran los viewmodel
  con el patron sigleton y no se llamara a dispose una vez dejen de usarse, permitiendo asi
  reutilizar la misma instancia al volver a obtenerla.
+- Modificar root widget para que admita contexto en los widgets

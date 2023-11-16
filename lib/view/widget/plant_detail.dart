@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:sunflower_flutter/di/locator.dart';
 import 'package:sunflower_flutter/view/viewmodel/plant_detail_viewmodel.dart';
+import 'package:sunflower_flutter/view/widget/root_widget.dart';
 import 'package:sunflower_flutter/view/widget/shape.dart';
-
-import '../../di/locator.dart';
-import 'root_widget.dart';
 
 class PlantDetail extends RootWidget<PlantDetailViewModel> {
   PlantDetail({super.key}) : super(getIt());

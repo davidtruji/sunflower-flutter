@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:sunflower_flutter/data/datasource/remote/remote.dart';
-
-import '../../../domain/model/unsplash_search_result.dart';
+import 'package:sunflower_flutter/data/model/unsplash_search_result_data.dart';
+import 'package:sunflower_flutter/domain/model/unsplash_search_result.dart';
 
 class UnsplashAPI extends Remote {
   static const String baseURL = "api.unsplash.com";
@@ -11,7 +11,7 @@ class UnsplashAPI extends Remote {
   static const int pageSize = 20;
 
   @override
-  Future<UnsplashSearchResults> fetchGallery(String query, int page) async {
+  Future<UnsplashSearchResult> fetchGallery(String query, int page) async {
     final queryParameters = {
       'query': query,
       'client_id': apiKey,
@@ -23,7 +23,8 @@ class UnsplashAPI extends Remote {
 
     final response = await http.get(uri);
 
-    return UnsplashSearchResults.fromJson(
-        jsonDecode(response.body) as Map<String, dynamic>);
+    return UnsplashSearchResultData.fromJson(
+            jsonDecode(response.body) as Map<String, dynamic>)
+        .toUnsplashSearchResult();
   }
 }

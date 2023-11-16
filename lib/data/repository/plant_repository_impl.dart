@@ -1,7 +1,6 @@
+import 'package:sunflower_flutter/data/datasource/local/local.dart';
 import 'package:sunflower_flutter/domain/model/plant.dart';
 import 'package:sunflower_flutter/domain/repository/plant_repository.dart';
-
-import '../datasource/local/local.dart';
 
 class PlantRepositoryImpl extends PlantRepository {
   final Local local;

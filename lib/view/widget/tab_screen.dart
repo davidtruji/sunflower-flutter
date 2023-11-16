@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:sunflower_flutter/di/locator.dart';
 import 'package:sunflower_flutter/view/viewmodel/tab_screen_viewmodel.dart';
 import 'package:sunflower_flutter/view/widget/garden_list.dart';
-
-import '../../di/locator.dart';
-import 'plant_list.dart';
-import 'root_widget.dart';
+import 'package:sunflower_flutter/view/widget/plant_list.dart';
+import 'package:sunflower_flutter/view/widget/root_widget.dart';
 
 class TabScreen extends RootWidget<TabScreenViewModel> {
   TabScreen({super.key}) : super(getIt());
@@ -33,8 +32,8 @@ class TabScreen extends RootWidget<TabScreenViewModel> {
         ),
         body: TabBarView(
           children: [
-            gardenList(model.gardenPlantings, model.onPlantTap),
-            plantList(model.plants, model.onPlantTap)
+            gardenList(model.gardenPlantings, model.onPlantTap, context),
+            plantList(model.plants, model.onPlantTap, context)
           ],
         ),
       ),
