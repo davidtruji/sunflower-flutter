@@ -4,6 +4,7 @@ import 'package:sunflower_flutter/domain/model/plant.dart';
 import 'package:sunflower_flutter/view/viewmodel/gallery_viewmodel.dart';
 import 'package:sunflower_flutter/view/widget/plant_list_item.dart';
 import 'package:sunflower_flutter/view/widget/root_widget.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../di/locator.dart';
 import '../../domain/model/unsplash_photo.dart';
@@ -51,7 +52,7 @@ class GalleryScreen extends RootWidget<GalleryViewModel> {
                           growZoneNumber: 0,
                           wateringInterval: 0,
                           imageUrl: item.urls!.small!),
-                      onTap: () => {},
+                      onTap: () => launchURL(item.user!.username!),
                     )),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 mainAxisSpacing: 16,
@@ -60,5 +61,10 @@ class GalleryScreen extends RootWidget<GalleryViewModel> {
                     (MediaQuery.of(context).size.width ~/ 150).toInt()),
           )),
     );
+  }
+
+  void launchURL(String username) {
+    launchUrl(Uri.parse(
+        "https://unsplash.com/$username?utm_source=sunflower&utm_medium=referral"));
   }
 }
