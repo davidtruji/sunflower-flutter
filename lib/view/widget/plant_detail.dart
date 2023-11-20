@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:sunflower_flutter/di/locator.dart';
 import 'package:sunflower_flutter/view/viewmodel/plant_detail_viewmodel.dart';
 import 'package:sunflower_flutter/view/widget/root_widget.dart';
 import 'package:sunflower_flutter/view/widget/shape.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PlantDetail extends RootWidget<PlantDetailViewModel> {
   PlantDetail({super.key}) : super(getIt());
@@ -27,7 +29,7 @@ class PlantDetail extends RootWidget<PlantDetailViewModel> {
                     SliverAppBar(
                       pinned: true,
                       expandedHeight: 300.0,
-                      collapsedHeight: 100.0,
+                      collapsedHeight: 150.0,
                       actions: [
                         Padding(
                           padding: const EdgeInsets.all(8),
@@ -102,7 +104,11 @@ class PlantDetail extends RootWidget<PlantDetailViewModel> {
                       ],
                     ),
                     plantIrrigation(model.plant!.wateringInterval),
-                    Text(model.plant!.description),
+                    Html(
+                      data: model.plant!.description,
+                      onLinkTap: (url, attributes, element) =>
+                          launchUrl(Uri.parse(url!)),
+                    ),
                   ]),
                 ))),
           );
