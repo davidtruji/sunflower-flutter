@@ -34,6 +34,7 @@ class PlantListItem extends StatelessWidget {
                           child: CircularProgressIndicator(),
                         ));
                   },
+                  cacheHeight: 360,
                   height: 100,
                   plant.imageUrl,
                   fit: BoxFit.cover,
