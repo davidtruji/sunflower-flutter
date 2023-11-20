@@ -57,7 +57,7 @@ Future<Database> getDataBase() async {
     sqfliteFfiInit();
     final databaseFactory = databaseFactoryFfi;
     final appDocumentsDir = await getApplicationDocumentsDirectory();
-    final dbPath = join(appDocumentsDir.path, "databases", "data.db");
+    final dbPath = join(appDocumentsDir.path, "Sunflower", "data.db");
     final winLinuxDB = await databaseFactory.openDatabase(
       dbPath,
       options: OpenDatabaseOptions(
