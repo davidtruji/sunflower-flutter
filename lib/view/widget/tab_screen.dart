@@ -11,6 +11,7 @@ class TabScreen extends RootWidget<TabScreenViewModel> {
   @override
   Widget widget(TabScreenViewModel model, BuildContext context) {
     return DefaultTabController(
+      initialIndex: 1,
       length: 2,
       child: Scaffold(
         appBar: AppBar(
@@ -19,13 +20,16 @@ class TabScreen extends RootWidget<TabScreenViewModel> {
           actions: [
             Padding(
                 padding: const EdgeInsets.only(right: 16),
-                child: IconButton(
-                    onPressed: () => model.onTapFilter(),
-                    icon: const Icon(Icons.filter_list)))
+                child: Visibility(
+                    visible: model.filterVisibility,
+                    child: IconButton(
+                        onPressed: () => model.onTapFilter(),
+                        icon: const Icon(Icons.filter_list))))
           ],
-          bottom: const TabBar(
+          bottom: TabBar(
+            onTap: (tabIndex) => model.onTapTab(tabIndex),
             indicatorSize: TabBarIndicatorSize.tab,
-            tabs: [
+            tabs: const [
               Tab(
                 icon: Icon(Icons.local_florist, size: 36),
                 text: "Mi jardín",

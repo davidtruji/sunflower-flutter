@@ -6,16 +6,22 @@ import 'package:sunflower_flutter/view/navigator.dart' as nav;
 import 'package:sunflower_flutter/view/viewmodel/root_viewmodel.dart';
 
 class TabScreenViewModel extends RootViewModel {
+  static const gardenPlantingsTab = 0;
+  static const plantsTab = 1;
+
   final PlantRepository plantRepository;
   final GardenPlantingRepository gardenPlantingRepository;
   final nav.Navigator navigator;
 
+  bool _filterVisibility = true;
   bool _filtered = false;
   List<Plant> _plants = [];
   List<Plant> _plantsFullList = [];
   List<GardenPlanting> _gardenPlantings = [];
 
   List<Plant> get plants => _plants;
+
+  bool get filterVisibility => _filterVisibility;
 
   List<GardenPlanting> get gardenPlantings => _gardenPlantings;
 
@@ -44,6 +50,15 @@ class TabScreenViewModel extends RootViewModel {
       _plants = List<Plant>.from(_plantsFullList);
     }
 
+    notify();
+  }
+
+  void onTapTab(int tabIndex) {
+    if (tabIndex == gardenPlantingsTab) {
+      _filterVisibility = false;
+    } else {
+      _filterVisibility = true;
+    }
     notify();
   }
 
