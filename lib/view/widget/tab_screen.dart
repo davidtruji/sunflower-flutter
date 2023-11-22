@@ -16,6 +16,13 @@ class TabScreen extends RootWidget<TabScreenViewModel> {
         appBar: AppBar(
           centerTitle: true,
           title: const Text('Sunflower'),
+          actions: [
+            Padding(
+                padding: const EdgeInsets.only(right: 16),
+                child: IconButton(
+                    onPressed: () => model.onTapFilter(),
+                    icon: const Icon(Icons.filter_list)))
+          ],
           bottom: const TabBar(
             indicatorSize: TabBarIndicatorSize.tab,
             tabs: [
