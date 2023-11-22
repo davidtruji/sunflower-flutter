@@ -53,8 +53,8 @@ class TabScreenViewModel extends RootViewModel {
     notify();
   }
 
-  void onTapTab(int tabIndex) {
-    if (tabIndex == gardenPlantingsTab) {
+  void onTabChange(int newTabIndex) {
+    if (newTabIndex == gardenPlantingsTab) {
       _filterVisibility = false;
     } else {
       _filterVisibility = true;
