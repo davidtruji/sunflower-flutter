@@ -4,6 +4,7 @@ import 'package:sunflower_flutter/view/viewmodel/tab_screen_viewmodel.dart';
 import 'package:sunflower_flutter/view/widget/garden_list.dart';
 import 'package:sunflower_flutter/view/widget/plant_list.dart';
 import 'package:sunflower_flutter/view/widget/root_widget.dart';
+import 'package:sunflower_flutter/view/widget/shape.dart';
 
 class TabScreen extends RootWidget<TabScreenViewModel> {
   TabScreen({super.key}) : super(getIt());
@@ -50,12 +51,32 @@ class TabScreen extends RootWidget<TabScreenViewModel> {
               ),
               body: TabBarView(
                 children: [
-                  gardenList(model.gardenPlantings, model.onPlantTap, context),
+                  model.gardenPlantings.isNotEmpty
+                      ? gardenList(
+                          model.gardenPlantings, model.onPlantTap, context)
+                      : nothingPlanted(context, controller),
                   plantList(model.plants, model.onPlantTap, context)
                 ],
               ),
             );
           },
         ));
+  }
+
+  Widget nothingPlanted(BuildContext context, TabController controller) {
+    return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Text(
+            "Tu jardín esta vacío",
+            style: Theme.of(context).textTheme.displaySmall,
+          ),
+          FilledButton(
+            style: ButtonStyle(shape: Shape.filledButtonShape),
+            onPressed: () => controller.animateTo(1),
+            child: const Text("Añadir planta"),
+          )
+        ]);
   }
 }
