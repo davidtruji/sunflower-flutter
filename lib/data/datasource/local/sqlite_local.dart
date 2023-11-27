@@ -1,7 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:sunflower_flutter/data/datasource/local/garden_planting_dao.dart';
 import 'package:sunflower_flutter/data/datasource/local/local.dart';
@@ -12,11 +15,64 @@ import 'package:sunflower_flutter/domain/model/garden_planting.dart';
 import 'package:sunflower_flutter/domain/model/plant.dart';
 
 class SqliteLocal extends Local {
-  final Database database;
+  late final Database database;
   late PlantDao plantDao;
   late GardenPlantingDao gardenPlantingDao;
 
-  SqliteLocal(this.database) {
+  Future<Database> getDataBase() async {
+    if (Platform.isWindows || Platform.isLinux) {
+      sqfliteFfiInit();
+      final databaseFactory = databaseFactoryFfi;
+      final appDocumentsDir = await getApplicationDocumentsDirectory();
+      final dbPath = join(appDocumentsDir.path, "Sunflower", "data.db");
+      final winLinuxDB = await databaseFactory.openDatabase(
+        dbPath,
+        options: OpenDatabaseOptions(
+          version: 1,
+          onCreate: onCreateDataBase,
+        ),
+      );
+      return winLinuxDB;
+    } else if (Platform.isAndroid || Platform.isIOS) {
+      final path = join(await getDatabasesPath(), "data.db");
+      final iOSAndroidDB = await openDatabase(
+        path,
+        version: 1,
+        onCreate: onCreateDataBase,
+      );
+
+      return iOSAndroidDB;
+    }
+    throw Exception("Unsupported platform");
+  }
+
+  Future<void> onCreateDataBase(Database database, int version) async {
+    debugPrint("Creating database");
+    final db = database;
+
+    // Create plants table
+    await db.execute(""" CREATE TABLE IF NOT EXISTS plants(
+            plantId TEXT PRIMARY KEY,
+            name TEXT,
+            description TEXT,
+            growZoneNumber INTEGER,
+            wateringInterval INTEGER,
+            imageUrl TEXT
+          )
+ """);
+
+    // Create garden table
+    await db.execute(""" CREATE TABLE IF NOT EXISTS garden_plantings(
+            gardenPlantingId TEXT PRIMARY KEY,
+            plantId TEXT,
+            plantDate TEXT,
+            lastWateringDate TEXT
+          )
+ """);
+  }
+
+  Future<void> initializeBD() async {
+    database = await getDataBase();
     plantDao = PlantDao(database);
     gardenPlantingDao = GardenPlantingDao(database);
   }

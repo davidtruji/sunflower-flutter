@@ -1,10 +1,4 @@
-import 'dart:io';
-
-import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:path/path.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:sunflower_flutter/data/datasource/local/local.dart';
 import 'package:sunflower_flutter/data/datasource/local/sqlite_local.dart';
 import 'package:sunflower_flutter/data/datasource/remote/remote.dart';
@@ -29,10 +23,11 @@ Future<void> initializeDI() async {
 }
 
 Future<void> data() async {
-  final db = await getDataBase();
+  SqliteLocal bdImpl = SqliteLocal();
+  await bdImpl.initializeBD();
 
   // DATA
-  getIt.registerSingleton<Local>(SqliteLocal(db));
+  getIt.registerSingleton<Local>(bdImpl);
   getIt.registerSingleton<Remote>(UnsplashAPI());
   getIt.registerSingleton<PlantRepository>(PlantRepositoryImpl(getIt.get()));
   getIt.registerSingleton<GardenPlantingRepository>(
@@ -50,56 +45,4 @@ Future<void> view() async {
   getIt.registerSingleton<PlantDetailViewModel>(
       PlantDetailViewModel(getIt(), getIt(), getIt()));
   getIt.registerSingleton<GalleryViewModel>(GalleryViewModel(getIt(), getIt()));
-}
-
-Future<Database> getDataBase() async {
-  if (Platform.isWindows || Platform.isLinux) {
-    sqfliteFfiInit();
-    final databaseFactory = databaseFactoryFfi;
-    final appDocumentsDir = await getApplicationDocumentsDirectory();
-    final dbPath = join(appDocumentsDir.path, "Sunflower", "data.db");
-    final winLinuxDB = await databaseFactory.openDatabase(
-      dbPath,
-      options: OpenDatabaseOptions(
-        version: 1,
-        onCreate: onCreateDataBase,
-      ),
-    );
-    return winLinuxDB;
-  } else if (Platform.isAndroid || Platform.isIOS) {
-    final path = join(await getDatabasesPath(), "data.db");
-    final iOSAndroidDB = await openDatabase(
-      path,
-      version: 1,
-      onCreate: onCreateDataBase,
-    );
-
-    return iOSAndroidDB;
-  }
-  throw Exception("Unsupported platform");
-}
-
-Future<void> onCreateDataBase(Database database, int version) async {
-  debugPrint("Creating database");
-  final db = database;
-
-  // Create plants table
-  await db.execute(""" CREATE TABLE IF NOT EXISTS plants(
-            plantId TEXT PRIMARY KEY,
-            name TEXT,
-            description TEXT,
-            growZoneNumber INTEGER,
-            wateringInterval INTEGER,
-            imageUrl TEXT
-          )
- """);
-
-  // Create garden table
-  await db.execute(""" CREATE TABLE IF NOT EXISTS garden_plantings(
-            gardenPlantingId TEXT PRIMARY KEY,
-            plantId TEXT,
-            plantDate TEXT,
-            lastWateringDate TEXT
-          )
- """);
 }
