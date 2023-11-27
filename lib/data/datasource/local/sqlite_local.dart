@@ -19,7 +19,7 @@ class SqliteLocal extends Local {
   late PlantDao plantDao;
   late GardenPlantingDao gardenPlantingDao;
 
-  Future<Database> getDataBase() async {
+  Future<Database> _getDataBase() async {
     if (Platform.isWindows || Platform.isLinux) {
       sqfliteFfiInit();
       final databaseFactory = databaseFactoryFfi;
@@ -29,7 +29,7 @@ class SqliteLocal extends Local {
         dbPath,
         options: OpenDatabaseOptions(
           version: 1,
-          onCreate: onCreateDataBase,
+          onCreate: _onCreateDataBase,
         ),
       );
       return winLinuxDB;
@@ -38,7 +38,7 @@ class SqliteLocal extends Local {
       final iOSAndroidDB = await openDatabase(
         path,
         version: 1,
-        onCreate: onCreateDataBase,
+        onCreate: _onCreateDataBase,
       );
 
       return iOSAndroidDB;
@@ -46,7 +46,7 @@ class SqliteLocal extends Local {
     throw Exception("Unsupported platform");
   }
 
-  Future<void> onCreateDataBase(Database database, int version) async {
+  Future<void> _onCreateDataBase(Database database, int version) async {
     debugPrint("Creating database");
     final db = database;
 
@@ -72,7 +72,7 @@ class SqliteLocal extends Local {
   }
 
   Future<void> initializeBD() async {
-    database = await getDataBase();
+    database = await _getDataBase();
     plantDao = PlantDao(database);
     gardenPlantingDao = GardenPlantingDao(database);
   }
