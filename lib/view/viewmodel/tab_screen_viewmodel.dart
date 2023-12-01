@@ -68,6 +68,6 @@ class TabScreenViewModel extends RootViewModel {
   }
 
   void onPlantTap(String id) {
-    navigator.toPlantDetail(id);
+    //navigator.toPlantDetail(id);
   }
 }

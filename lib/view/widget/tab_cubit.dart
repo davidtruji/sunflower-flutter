@@ -3,20 +3,17 @@ import 'package:sunflower_flutter/domain/model/garden_planting.dart';
 import 'package:sunflower_flutter/domain/model/plant.dart';
 import 'package:sunflower_flutter/domain/repository/garden_planting_repository.dart';
 import 'package:sunflower_flutter/domain/repository/plant_repository.dart';
-import 'package:sunflower_flutter/view/navigator.dart' as nav;
 import 'package:sunflower_flutter/view/widget/tab_state.dart';
 
 class TabCubit extends Cubit<TabState> {
   static const gardenPlantingsTab = 0;
   static const plantsTab = 1;
 
-  TabCubit(
-      this._navigator, this._plantRepository, this._gardenPlantingRepository)
+  TabCubit(this._plantRepository, this._gardenPlantingRepository)
       : super(TabState.empty());
 
   final PlantRepository _plantRepository;
   final GardenPlantingRepository _gardenPlantingRepository;
-  final nav.Navigator _navigator;
 
   Future<void> initialize() async {
     state.gardenPlantings = await _getGardenPlantings();
@@ -46,12 +43,17 @@ class TabCubit extends Cubit<TabState> {
     emit(state.copyWith(filtered: filtered));
   }
 
+  void updateGardenPlantings() async {
+    state.gardenPlantings = await _getGardenPlantings();
+    emit(state.copyWith());
+  }
+
   void onTabChange(int newTabIndex) {
     bool filterVisibility = (newTabIndex == plantsTab);
     emit(state.copyWith(filterVisibility: filterVisibility));
   }
 
   void onPlantTap(String id) {
-    _navigator.toPlantDetail(id);
+    //_navigator.toPlantDetail(id);
   }
 }

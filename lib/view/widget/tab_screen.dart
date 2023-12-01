@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sunflower_flutter/di/locator.dart';
 import 'package:sunflower_flutter/view/widget/garden_list.dart';
 import 'package:sunflower_flutter/view/widget/plant_list.dart';
 import 'package:sunflower_flutter/view/widget/shape.dart';
@@ -9,18 +8,6 @@ import 'package:sunflower_flutter/view/widget/tab_state.dart';
 
 class TabScreen extends StatelessWidget {
   const TabScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocProvider<TabCubit>(
-      create: (_) => TabCubit(getIt(), getIt(), getIt())..initialize(),
-      child: const TabScreenView(),
-    );
-  }
-}
-
-class TabScreenView extends StatelessWidget {
-  const TabScreenView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -67,12 +54,10 @@ class TabScreenView extends StatelessWidget {
               ),
               body: TabBarView(
                 children: [
-                  state.gardenPlantings.isNotEmpty
-                      ? gardenList(state.gardenPlantings,
-                          context.read<TabCubit>().onPlantTap, context)
-                      : nothingPlanted(context, controller),
-                  plantList(state.plants, context.read<TabCubit>().onPlantTap,
-                      context)
+                  state.gardenPlantings.isEmpty
+                      ? nothingPlanted(context, controller)
+                      : gardenList(state.gardenPlantings, context),
+                  plantList(state.plants, context)
                 ],
               ),
             );
