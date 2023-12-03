@@ -9,10 +9,6 @@ import 'package:sunflower_flutter/data/repository/unsplash_repository_impl.dart'
 import 'package:sunflower_flutter/domain/repository/garden_planting_repository.dart';
 import 'package:sunflower_flutter/domain/repository/plant_repository.dart';
 import 'package:sunflower_flutter/domain/repository/unsplash_repository.dart';
-import 'package:sunflower_flutter/view/navigator.dart' as nav;
-import 'package:sunflower_flutter/view/viewmodel/gallery_viewmodel.dart';
-import 'package:sunflower_flutter/view/viewmodel/plant_detail_viewmodel.dart';
-import 'package:sunflower_flutter/view/viewmodel/tab_screen_viewmodel.dart';
 
 final getIt = GetIt.I;
 
@@ -39,10 +35,5 @@ Future<void> data() async {
 Future<void> domain() async {}
 
 Future<void> view() async {
-  getIt.registerSingleton<nav.Navigator>(nav.Navigator());
-  getIt.registerSingleton<TabScreenViewModel>(
-      TabScreenViewModel(getIt(), getIt(), getIt()));
-  getIt.registerSingleton<PlantDetailViewModel>(
-      PlantDetailViewModel(getIt(), getIt(), getIt()));
-  getIt.registerSingleton<GalleryViewModel>(GalleryViewModel(getIt(), getIt()));
+  // unnecessary using BLOC
 }

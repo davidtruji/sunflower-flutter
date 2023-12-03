@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sunflower_flutter/domain/model/garden_planting.dart';
-import 'package:sunflower_flutter/view/widget/shape.dart';
+import 'package:sunflower_flutter/view/shape.dart';
 
 class GardenListItem extends StatelessWidget {
   const GardenListItem(

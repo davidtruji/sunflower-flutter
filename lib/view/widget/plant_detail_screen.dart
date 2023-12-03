@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:sunflower_flutter/view/widget/navigator_cubit.dart';
-import 'package:sunflower_flutter/view/widget/plant_detail_cubit.dart';
-import 'package:sunflower_flutter/view/widget/plant_detail_state.dart';
-import 'package:sunflower_flutter/view/widget/shape.dart';
-import 'package:sunflower_flutter/view/widget/tab_cubit.dart';
+import 'package:sunflower_flutter/view/bloc/gallery_cubit.dart';
+import 'package:sunflower_flutter/view/bloc/navigator_cubit.dart';
+import 'package:sunflower_flutter/view/bloc/plant_detail_cubit.dart';
+import 'package:sunflower_flutter/view/bloc/plant_detail_state.dart';
+import 'package:sunflower_flutter/view/shape.dart';
+import 'package:sunflower_flutter/view/bloc/tab_cubit.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class PlantDetailScreen extends StatelessWidget {
@@ -96,18 +97,15 @@ class PlantDetailScreen extends StatelessWidget {
                       child: Padding(
                     padding: const EdgeInsets.all(24),
                     child: Column(children: [
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(state.plant!.name,
-                              style: Theme.of(context).textTheme.headlineSmall),
-                          IconButton(
-                              icon: const Icon(Icons.photo_library),
-                              onPressed: () => context
-                                  .read<NavigatorCubit>()
-                                  .toPlantGallery())
-                        ],
-                      ),
+                      Row(mainAxisSize: MainAxisSize.min, children: [
+                        Text(state.plant!.name,
+                            style: Theme.of(context).textTheme.headlineSmall),
+                        IconButton(
+                          icon: const Icon(Icons.photo_library),
+                          onPressed: () =>
+                              openPlantGallery(context, state.plant!.name),
+                        ),
+                      ]),
                       plantIrrigation(state.plant!.wateringInterval),
                       Html(
                         data: state.plant!.description,
@@ -118,6 +116,11 @@ class PlantDetailScreen extends StatelessWidget {
                   ))),
             );
     });
+  }
+
+  void openPlantGallery(BuildContext context, String query) {
+    context.read<GalleryCubit>().setQuery(query: query);
+    context.read<NavigatorCubit>().toPlantGallery();
   }
 
   void addPlantToGarden(BuildContext context) {

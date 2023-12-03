@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sunflower_flutter/domain/model/plant.dart';
-import 'package:sunflower_flutter/view/widget/shape.dart';
+import 'package:sunflower_flutter/view/shape.dart';
 
 class PlantListItem extends StatelessWidget {
   const PlantListItem({super.key, required this.plant, required this.onTap});

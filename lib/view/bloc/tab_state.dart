@@ -1,7 +1,7 @@
 import 'package:sunflower_flutter/domain/model/garden_planting.dart';
 import 'package:sunflower_flutter/domain/model/plant.dart';
 
-final class TabState {
+class TabState {
   bool filterVisibility = true;
   bool filtered = false;
   List<Plant> plants = [];

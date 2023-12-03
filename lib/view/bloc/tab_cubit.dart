@@ -3,7 +3,7 @@ import 'package:sunflower_flutter/domain/model/garden_planting.dart';
 import 'package:sunflower_flutter/domain/model/plant.dart';
 import 'package:sunflower_flutter/domain/repository/garden_planting_repository.dart';
 import 'package:sunflower_flutter/domain/repository/plant_repository.dart';
-import 'package:sunflower_flutter/view/widget/tab_state.dart';
+import 'package:sunflower_flutter/view/bloc/tab_state.dart';
 
 class TabCubit extends Cubit<TabState> {
   static const gardenPlantingsTab = 0;

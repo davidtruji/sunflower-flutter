@@ -5,7 +5,7 @@ import 'package:sunflower_flutter/domain/model/garden_planting.dart';
 import 'package:sunflower_flutter/domain/model/plant.dart';
 import 'package:sunflower_flutter/domain/repository/garden_planting_repository.dart';
 import 'package:sunflower_flutter/domain/repository/plant_repository.dart';
-import 'package:sunflower_flutter/view/widget/plant_detail_state.dart';
+import 'package:sunflower_flutter/view/bloc/plant_detail_state.dart';
 
 class PlantDetailCubit extends Cubit<PlantDetailState> {
   PlantDetailCubit(this._plantRepository, this._gardenPlantingRepository)
@@ -14,7 +14,7 @@ class PlantDetailCubit extends Cubit<PlantDetailState> {
   final PlantRepository _plantRepository;
   final GardenPlantingRepository _gardenPlantingRepository;
 
-  void initialize(String plantId) async {
+  void setPlant({required String plantId}) async {
     Plant plant = await _getPlant(plantId);
     bool addedToGarden = await _getAddedToGarden(plantId);
     emit(PlantDetailState(plant: plant, addedToGarden: addedToGarden));

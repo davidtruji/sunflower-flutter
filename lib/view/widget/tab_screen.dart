@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sunflower_flutter/view/bloc/tab_state.dart';
 import 'package:sunflower_flutter/view/widget/garden_list.dart';
 import 'package:sunflower_flutter/view/widget/plant_list.dart';
-import 'package:sunflower_flutter/view/widget/shape.dart';
-import 'package:sunflower_flutter/view/widget/tab_cubit.dart';
-import 'package:sunflower_flutter/view/widget/tab_state.dart';
+import 'package:sunflower_flutter/view/shape.dart';
+import 'package:sunflower_flutter/view/bloc/tab_cubit.dart';
 
 class TabScreen extends StatelessWidget {
   const TabScreen({super.key});
