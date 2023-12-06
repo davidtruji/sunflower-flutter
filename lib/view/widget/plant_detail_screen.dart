@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:sunflower_flutter/view/bloc/gallery_cubit.dart';
-import 'package:sunflower_flutter/view/bloc/navigator_cubit.dart';
 import 'package:sunflower_flutter/view/bloc/plant_detail_cubit.dart';
 import 'package:sunflower_flutter/view/bloc/plant_detail_state.dart';
-import 'package:sunflower_flutter/view/shape.dart';
 import 'package:sunflower_flutter/view/bloc/tab_cubit.dart';
+import 'package:sunflower_flutter/view/shape.dart';
+import 'package:sunflower_flutter/view/widget/gallery_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class PlantDetailScreen extends StatelessWidget {
@@ -54,8 +54,7 @@ class PlantDetailScreen extends StatelessWidget {
                           child: FloatingActionButton(
                             elevation: 0,
                             heroTag: UniqueKey(),
-                            onPressed: () =>
-                                context.read<NavigatorCubit>().toTabScreen(),
+                            onPressed: () => Navigator.pop(context),
                             shape: const CircleBorder(),
                             child: const Icon(Icons.arrow_back),
                           ),
@@ -120,7 +119,11 @@ class PlantDetailScreen extends StatelessWidget {
 
   void openPlantGallery(BuildContext context, String query) {
     context.read<GalleryCubit>().setQuery(query: query);
-    context.read<NavigatorCubit>().toPlantGallery();
+
+    // Navigate to detail
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => const GalleryScreen(),
+    ));
   }
 
   void addPlantToGarden(BuildContext context) {

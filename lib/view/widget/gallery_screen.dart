@@ -6,7 +6,6 @@ import 'package:sunflower_flutter/domain/model/unsplash_photo.dart';
 import 'package:sunflower_flutter/domain/model/unsplash_search_result.dart';
 import 'package:sunflower_flutter/view/bloc/gallery_cubit.dart';
 import 'package:sunflower_flutter/view/bloc/gallery_state.dart';
-import 'package:sunflower_flutter/view/bloc/navigator_cubit.dart';
 import 'package:sunflower_flutter/view/widget/plant_list_item.dart';
 
 class GalleryScreen extends StatelessWidget {
@@ -37,7 +36,7 @@ class GalleryScreen extends StatelessWidget {
               title: const Text("Fotos por Unsplash"),
               leading: IconButton(
                 icon: const Icon(Icons.arrow_back),
-                onPressed: () => context.read<NavigatorCubit>().toPlantDetail(),
+                onPressed: () => Navigator.pop(context),
               )),
           body: Padding(
               padding: const EdgeInsets.all(16),
