@@ -3,12 +3,12 @@ import 'package:stacked/stacked.dart';
 import 'package:sunflower_flutter/view/viewmodel/root_viewmodel.dart';
 
 
-abstract class RootWidget<T extends RootViewModel> extends StatelessWidget {
+abstract class MyRootWidget<T extends RootViewModel> extends StatelessWidget {
   final T _model;
 
   get model => _model;
 
-  const RootWidget(this._model, {super.key});
+  const MyRootWidget(this._model, {super.key});
 
   @override
   Widget build(BuildContext context) {

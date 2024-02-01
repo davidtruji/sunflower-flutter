@@ -8,7 +8,7 @@ import 'package:sunflower_flutter/view/widget/plant_list_item.dart';
 import 'package:sunflower_flutter/view/widget/root_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class GalleryScreen extends RootWidget<GalleryViewModel> {
+class GalleryScreen extends MyRootWidget<GalleryViewModel> {
   GalleryScreen({super.key}) : super(getIt());
 
   Future<void> _fetchPage(GalleryViewModel model,

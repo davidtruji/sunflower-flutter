@@ -6,7 +6,7 @@ import 'package:sunflower_flutter/view/widget/root_widget.dart';
 import 'package:sunflower_flutter/view/widget/shape.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class PlantDetail extends RootWidget<PlantDetailViewModel> {
+class PlantDetail extends MyRootWidget<PlantDetailViewModel> {
   PlantDetail({super.key}) : super(getIt());
 
   static const snackBar = SnackBar(

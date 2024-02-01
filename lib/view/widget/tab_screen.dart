@@ -6,7 +6,7 @@ import 'package:sunflower_flutter/view/widget/plant_list.dart';
 import 'package:sunflower_flutter/view/widget/root_widget.dart';
 import 'package:sunflower_flutter/view/widget/shape.dart';
 
-class TabScreen extends RootWidget<TabScreenViewModel> {
+class TabScreen extends MyRootWidget<TabScreenViewModel> {
   TabScreen({super.key}) : super(getIt());
 
   @override
